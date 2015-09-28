@@ -3,6 +3,7 @@ FROM	tensin-base-ubuntu
 VOLUME	["/config", "/data"]
 CMD	["/usr/sbin/start_pms"]
 WORKDIR	/config
+ENV	HOME /config
 
 EXPOSE	32400
 
