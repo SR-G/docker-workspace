@@ -1,7 +1,8 @@
-FROM	tensin-base-ubuntu-supervisor
+FROM	tensin-base-ubuntu
 
 VOLUME	["/config", "/data"]
 CMD	["/usr/sbin/start_pms"]
+WORKDIR	/config
 
 EXPOSE	32400
 
