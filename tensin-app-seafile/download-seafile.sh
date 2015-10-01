@@ -1,7 +1,12 @@
 #!/bin/sh
 
+# Documentation here : http://manual.seafile.com/deploy/common_problems_for_setting_up_server.html
+
+SEAFILE_VERSION=4.3.2
+SEAFILE_ARCHIVE_URL="https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz"
+
 cd /opt/seafile
-curl -L -O https://bitbucket.org/haiwen/seafile/downloads/seafile-server_4.1.2_x86-64.tar.gz
+curl -L -O "$SEAFILE_ARCHIVE_URL"
 tar xzf seafile-server_*
 mkdir -p installed
 mv seafile-server_* installed
