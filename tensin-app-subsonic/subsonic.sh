@@ -102,8 +102,6 @@ fi
 
 # Create Subsonic home directory.
 mkdir -p ${SUBSONIC_HOME}
-LOG=${SUBSONIC_HOME}/subsonic_sh.log
-rm -f ${LOG}
 
 cd $(dirname $0)
 if [ -L $0 ] && ([ -e /bin/readlink ] || [ -e /usr/bin/readlink ]); then
@@ -121,7 +119,7 @@ ${JAVA} -Xmx${SUBSONIC_MAX_MEMORY}m \
   -Dsubsonic.defaultPlaylistFolder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \
   -Djava.awt.headless=true \
   -verbose:gc \
-  -jar subsonic-booter-jar-with-dependencies.jar > ${LOG} 2>&1 
+  -jar subsonic-booter-jar-with-dependencies.jar
 
 # Write pid to pidfile if it is defined.
 if [ $SUBSONIC_PIDFILE ]; then
