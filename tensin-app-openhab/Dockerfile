@@ -1,0 +1,1 @@
+FROM	tensin-base-alpine
