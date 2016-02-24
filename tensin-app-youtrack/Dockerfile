@@ -13,6 +13,6 @@ CMD	java \
 
 ENV	YOUTRACK_VERSION 6.5.17031
 
-RUN	mkdir -p /opt/youtrack/ /var/lib/youtrack/ &&
+RUN	mkdir -p /opt/youtrack/ /var/lib/youtrack/ && \
 	curl -sLo /opt/youtrack/youtrack-$YOUTRACK_VERSION.jar https://download.jetbrains.com/charisma/youtrack-$YOUTRACK_VERSION.jar && \
 	mv /opt/youtrack/youtrack-$YOUTRACK_VERSION.jar /opt/youtrack/youtrack.jar
