@@ -7,14 +7,15 @@ RUN	apk --update add curl ca-certificates tar && \
 
 # Java Version
 ENV	JAVA_VERSION_MAJOR 8
-ENV	JAVA_VERSION_MINOR 60
-ENV	JAVA_VERSION_BUILD 27
+ENV	JAVA_VERSION_MINOR 73
+ENV	JAVA_VERSION_BUILD 02
 ENV	JAVA_PACKAGE       jdk
 
 # Download and unarchive Java
 RUN mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie"\
   http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
     | tar -xzf - -C /opt &&\
+    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk &&\
     rm -rf /opt/jdk/*src.zip \
            /opt/jdk/lib/missioncontrol \
