@@ -1,9 +1,13 @@
 FROM	tensin-base-alpine
 
 # Install cURL
+ENV	GLIBC_VERSION	2.23-r1
 RUN	apk --update add curl ca-certificates tar && \
-	curl -Ls https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk > /tmp/glibc-2.21-r2.apk && \
-	apk add --allow-untrusted /tmp/glibc-2.21-r2.apk
+	curl -sLo /tmp/glibc-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-${GLIBC_VERSION}.apk && \
+	curl -sLo /tmp/glibc-bin-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-bin-${GLIBC_VERSION}.apk && \
+	curl -sLo /tmp/glibc-i18n-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-i18n-${GLIBC_VERSION}.apk && \
+	apk add --allow-untrusted /tmp/glibc-${GLIBC_VERSION}.apk /tmp/glibc-bin-${GLIBC_VERSION}.apk /tmp/glibc-i18n-${GLIBC_VERSION}.apk && \
+	/usr/glibc-compat/bin/localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
 
 # Java Version
 ENV	JAVA_VERSION_MAJOR 8
@@ -36,7 +40,21 @@ RUN mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie
            /opt/jdk/jre/lib/amd64/libglass.so \
            /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
            /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so
+           /opt/jdk/jre/lib/amd64/libjfx*.so && \
+    rm -rf /opt/jdk/jre/bin/jjs \
+           /opt/jdk/jre/bin/keytool \
+           /opt/jdk/jre/bin/orbd \
+           /opt/jdk/jre/bin/pack200 \
+           /opt/jdk/jre/bin/policytool \
+           /opt/jdk/jre/bin/rmid \
+           /opt/jdk/jre/bin/rmiregistry \
+           /opt/jdk/jre/bin/servertool \
+           /opt/jdk/jre/bin/tnameserv \
+           /opt/jdk/jre/bin/unpack200 \
+           /opt/jdk/jre/lib/ext/nashorn.jar \
+           /opt/jdk/jre/lib/jfr.jar \
+           /opt/jdk/jre/lib/jfr \
+           /opt/jdk/jre/lib/oblique-fonts
 
 # Set environment
 ENV	JAVA_HOME /opt/jdk
