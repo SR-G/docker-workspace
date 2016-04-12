@@ -11,7 +11,5 @@ RUN	mkdir -p /etc/polipo /cache /opt/ && \
 	git clone https://github.com/jech/polipo.git /opt/polipo/ && \
 	cd /opt/polipo/ && \
 	git checkout polipo-$POLIPO_VERSION && \
-	make && \
+	make EXTRA_DEFINES="-DCHUNK_SIZE=16384" && \
 	make install
-
-

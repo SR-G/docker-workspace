@@ -6,6 +6,16 @@
 proxyAddress = "0.0.0.0"
 disableIndexing = false
 disableServersList = false
-diskCacheRoot = /cache
-localDocumentRoot = ""
+diskCacheRoot = /cache/
+# localDocumentRoot = ""
+
+chunkHighMark = 1073741824
+objectHighMark = 16384
+
+maxConnectionRequests = 1024
+maxObjectsWhenIdle = 128
+maxPipelineTrain = 32
+maxWriteoutWhenIdle = 262144
+serverSlots = 8
+maxDiskEntries = 65536
 
