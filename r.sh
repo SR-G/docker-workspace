@@ -1,11 +1,13 @@
 #!/bin/zsh
 
-CONFIG=docker.cfg
-[[ ! -f "$CONFIG" ]] && echo "Config [$CONFIG] not found" && exit 1
+BASEPATH=$(dirname $0)
+CONFIG_ALIAS_FILENAME=$BASEPATH/docker-alias.cfg
+CONFIG_GLOBAL_FILENAME=$BASEPATH/docker-globals.cfg
+[[ ! -f "$CONFIG_ALIAS_FILENAME" ]] && echo "Config [$CONFIG_ALIAS_FILENAME] not found" && exit 1
 
 function listImages {
   echo "Available images :"
-  cat "$CONFIG" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
+  cat "$CONFIG_ALIAS_FILENAME" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
     [[ -z "$IMG" || "$IMG" = "-" ]] && IMG="$ALIAS"
     echo " - $ALIAS (image $IMG)\c"
     # [[ ! -z "$PARAMS_PORTS" ]] && echo " (ports = $PARAMS_PORTS)\c"
@@ -15,7 +17,7 @@ function listImages {
 }
 
 function listPorts {
-  cat "$CONFIG" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
+  cat "$CONFIG_ALIAS_FILENAME" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
     if [[ "$PARAMS_PORTS" != "-" && "$PARAMS_PORTS" != "" ]] ; then
       for PORTS in $(echo "$PARAMS_PORTS" | sed 's/,/\t/g') ; do
         P=$(echo $PORTS | cut -d":" -f1)
@@ -35,17 +37,20 @@ function enterImage {
   docker exec -it "$ALIAS" /bin/bash
 }
 
-function startImage {
+function runImage {
   ALIAS="$1"
-  cat "$CONFIG" | grep "^${ALIAS}"$'\t' | read ALIAS IMG PARAMS_PORTS PARAMS_MISC
-  [[ -z "$ALIAS" ]] && echo "Alias [$1] undefined in [$CONFIG]" && exit 1
+  cat "$CONFIG_ALIAS_FILENAME" | grep "^${ALIAS}"$'\t' | read ALIAS IMG PARAMS_PORTS PARAMS_MISC
+  [[ -z "$ALIAS" ]] && echo "Alias [$1] undefined in [$CONFIG_ALIAS_FILENAME]" && exit 1
   [[ -z "$IMG" || "$IMG" = "-" ]] && IMG="$ALIAS"
   PORTS=""
   for PORT in $(echo "$PARAMS_PORTS" | sed 's/,/\t/g') ; do
     PORTS="-p $PORT $PORTS"
   done
-  # TODO put this in config
-  PARAMS_GLOBAL="-v /home/datas/logs/$ALIAS/:/var/log/"
+  cat "$CONFIG_GLOBAL_FILENAME" 2>/dev/null | grep "PASSWORD" | read A PASSWORD
+  cat "$CONFIG_GLOBAL_FILENAME" 2>/dev/null | grep "GLOBAL" | read A PARAMS_GLOBAL
+  # PARAMS_GLOBAL="-v /home/datas/logs/$ALIAS/:/var/log/"
+  [[ ! -z "$PASSWORD" ]] && PARAMS_MISC=$(echo $PARAMS_MISC | sed 's/$PASSWORD/'$PASSWORD'/g')
+  [[ ! -z "$PARAMS_GLOBAL" ]] && PARAMS_GLOBAL=$(echo "$PARAMS_GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
   echo docker run -d $PORTS $PARAMS_GLOBAL $PARAMS_MISC --name "$ALIAS" "$IMAGE"
 }
 
@@ -102,6 +107,13 @@ function listStoppedContainers {
   rm -f $F1 $F2
 }
 
+function graph {
+  DEST="$1"
+  [[ -z "$DEST" ]] && DEST="docker-graph.png"
+  echo "Now generating graph under [$DEST]"
+  docker run --rm -v /var/run/docker.sock:/var/run/docker.sock centurylink/image-graph > $DEST
+}
+
 OPERATION="$1"
 IMAGE="$2"
 
@@ -121,6 +133,9 @@ case "$OPERATION" in
     ;;
   "enter")
     enterImage "$IMAGE"
+    ;;
+  "run")
+    runImage "$IMAGE"
     ;;
   "start")
     startImage "$IMAGE"
@@ -155,25 +170,31 @@ case "$OPERATION" in
   "clean-containers")
     cleanContainers
     ;;
+  "graph")
+    DEST="$2"
+    graph "$DEST"
+    ;;
   *)
     echo "Commands:"
 cat <<EOF
-    build                     Build a contaier
-    clean                     Clean logs, images and not running containers
-    clean-logs                Clean logs
-    clean-images              Clean images
-    clean-containers          Clean not running containers
-    enter                     Enter through /bin/bash a running container
-    force-rebuuild            Force rebuild a container
-    list                      List configured containers and used ports
-    list-containers           List configured containers
-    list-ports                List used ports  
-    list-stopped-containers   List stopped containers
-    purge                     Stop and remove a container
-    rebuild                   Rebuild a container
-    restart                   Stop and start again a container
-    start                     Start a container
-    stop                      Stop a container
+    build                 Build a contaier
+    clean                 Clean logs, images and not running containers
+    clean-logs            Clean logs
+    clean-images          Clean images
+    clean-containers      Clean not running containers
+    enter                 Enter through /bin/bash a running container
+    force-rebuuild        Force rebuild a container
+    graph                 Generates a .png of the containers graph
+    list                  List configured containers and used ports
+    list-containers       List configured containers
+    list-ports            List used ports  
+    list-stopped          List stopped containers
+    purge                 Stop and remove a container
+    rebuild               Rebuild a container
+    restart               Stop and start again a container
+    run                   Run for the first time a container
+    start                 Start a container
+    stop                  Stop a container
 EOF
     ;;
 esac
