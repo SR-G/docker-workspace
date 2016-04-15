@@ -26,7 +26,7 @@ function listPorts {
     fi
   done
   echo "Used ports :"
-  cat /tmp/docker.ports$$ 2>/dev/null | sort -n -r
+  cat /tmp/docker.ports$$ 2>/dev/null | sort -u -n -r
   rm -f /tmp/docker.ports$$ 2>/dev/null 
 }
 
