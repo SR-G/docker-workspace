@@ -9,7 +9,7 @@ function listImages {
   echo "Available images :"
   cat "$CONFIG_ALIAS_FILENAME" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
     [[ -z "$IMG" || "$IMG" = "-" ]] && IMG="$ALIAS"
-    echo " - $ALIAS (image $IMG)\c"
+    printf " - %-30s[%s]\c" $ALIAS $IMG
     # [[ ! -z "$PARAMS_PORTS" ]] && echo " (ports = $PARAMS_PORTS)\c"
     # [[ ! -z "$PARAMS_MISC" ]] && echo " (params = $PARAMS_MISC)\c"
     echo ""
@@ -21,15 +21,13 @@ function listPorts {
     if [[ "$PARAMS_PORTS" != "-" && "$PARAMS_PORTS" != "" ]] ; then
       for PORTS in $(echo "$PARAMS_PORTS" | sed 's/,/\t/g') ; do
         P=$(echo $PORTS | cut -d":" -f1)
-        echo "$P  -> $ALIAS"  >> /tmp/docker.ports$$
+        printf " - %-10s: %s\n" $P $ALIAS >> /tmp/docker.ports$$
       done
     fi
   done
   echo "Used ports :"
-  cat /tmp/docker.ports$$ | sort -n | while read PORT ; do
-    echo " - $PORT"
-  done
-  rm -f /tmp/docker.ports$$
+  cat /tmp/docker.ports$$ 2>/dev/null | sort -n -r
+  rm -f /tmp/docker.ports$$ 2>/dev/null 
 }
 
 function enterImage {
@@ -51,7 +49,7 @@ function runImage {
   # PARAMS_GLOBAL="-v /home/datas/logs/$ALIAS/:/var/log/"
   [[ ! -z "$PASSWORD" ]] && PARAMS_MISC=$(echo $PARAMS_MISC | sed 's/$PASSWORD/'$PASSWORD'/g')
   [[ ! -z "$PARAMS_GLOBAL" ]] && PARAMS_GLOBAL=$(echo "$PARAMS_GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
-  echo docker run -d $PORTS $PARAMS_GLOBAL $PARAMS_MISC --name "$ALIAS" "$IMAGE"
+  echo docker run $PORTS $PARAMS_GLOBAL $PARAMS_MISC --name "$ALIAS" "$IMG"
 }
 
 function stopImage {
