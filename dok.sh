@@ -4,12 +4,17 @@ BASEPATH=$(dirname $0)
 CONFIG_ALIAS_FILENAME=$BASEPATH/docker-alias.cfg
 CONFIG_GLOBAL_FILENAME=$BASEPATH/docker-globals.cfg
 [[ ! -f "$CONFIG_ALIAS_FILENAME" ]] && echo "Config [$CONFIG_ALIAS_FILENAME] not found" && exit 1
-[[ -f "$CONFIG_GLOBAL_FILENAME" ]] && eval $(cat "$CONFIG_GLOBAL_FILENAME")
+if [[ -f "$CONFIG_GLOBAL_FILENAME" ]] ; then
+  cat $CONFIG_GLOBAL_FILENAME | while read F ; do
+    eval "$F"
+  done
+fi 
 
 function listImages {
   echo "Available images :"
   cat "$CONFIG_ALIAS_FILENAME" | egrep -v "^#|^$" | sort -u | while IFS=$'\t' read -r ALIAS IMG PARAMS_PORTS PARAMS_MISC ; do
-    [[ -z "$IMG" || "$IMG" = "-" ]] && IMG="$ALIAS"
+    [[ -z "$IMG" ]] && IMG="$ALIAS" 
+    [[ "$IMG" = "-" ]] && IMG="$ALIAS" 
     printf " - %-30s[%s]\c" $ALIAS $IMG
     # [[ ! -z "$PARAMS_PORTS" ]] && echo " (ports = $PARAMS_PORTS)\c"
     # [[ ! -z "$PARAMS_MISC" ]] && echo " (params = $PARAMS_MISC)\c"
@@ -40,14 +45,12 @@ function runImage {
   ALIAS="$1"
   cat "$CONFIG_ALIAS_FILENAME" | grep "^${ALIAS}"$'\t' | read ALIAS IMG PARAMS_PORTS PARAMS_MISC
   [[ -z "$ALIAS" ]] && echo "Alias [$1] undefined in [$CONFIG_ALIAS_FILENAME]" && exit 1
-  [[ -z "$IMG" || "$IMG" = "-" ]] && IMG="$ALIAS"
+  [[ -z "$IMG" ]] && IMG="$ALIAS" 
+  [[ "$IMG" = "-" ]] && IMG="$ALIAS" 
   PORTS=""
   for PORT in $(echo "$PARAMS_PORTS" | sed 's/,/\t/g') ; do
     PORTS="-p $PORT $PORTS"
   done
-  cat "$CONFIG_GLOBAL_FILENAME" 2>/dev/null | grep "PASSWORD" | read A PASSWORD
-  cat "$CONFIG_GLOBAL_FILENAME" 2>/dev/null | grep "GLOBAL" | read A PARAMS_GLOBAL
-  # PARAMS_GLOBAL="-v /home/datas/logs/$ALIAS/:/var/log/"
   [[ ! -z "$PASSWORD" ]] && PARAMS_MISC=$(echo $PARAMS_MISC | sed 's/$PASSWORD/'$PASSWORD'/g')
   [[ ! -z "$PARAMS_GLOBAL" ]] && PARAMS_GLOBAL=$(echo "$PARAMS_GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
   echo docker run $PORTS $PARAMS_GLOBAL $PARAMS_MISC --name "$ALIAS" "$IMG"
@@ -113,7 +116,7 @@ function graph {
   docker run --rm -v /var/run/docker.sock:/var/run/docker.sock centurylink/image-graph > $DEST
 }
 
-OPERATION="$1"
+OPERATION=$(echo "$1" | tr "[A-Z]" "[a-z]")
 IMAGE="$2"
 
 case "$OPERATION" in
