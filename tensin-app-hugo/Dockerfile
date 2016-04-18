@@ -1,13 +1,14 @@
 FROM	tensin-base-alpine
 
 EXPOSE	1313
-CMD	hugo serve . --bind=0.0.0.0 --baseUrl=http://192.168.8.4/
 VOLUME	["/data/"]
 WORKDIR	/data
 ENV	PATH $PATH:/opt/pygments/:/opt/hugo/
 ENV	HUGO_PACKAGE	 linux_amd64
 ENV	HUGO_VERSION	 0.15
 ENV	PYGMENTS_VERSION 2.1.1
+ENV	BASE_URL	http://192.168.8.4/
+CMD	hugo serve . --bind=0.0.0.0 --baseUrl=$BASE_URL
 
 RUN	apk --update add git python curl && \
 	mkdir -p /opt/hugo/ && \

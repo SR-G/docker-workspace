@@ -5,7 +5,7 @@ ENV	GRADLE_HOME /opt/gradle
 ENV	PATH $PATH:$GRADLE_HOME/bin
 
 # Gradle version
-ENV	GRADLE_VERSION	2.7
+ENV	GRADLE_VERSION	2.12
 
 # Gradle
 RUN	curl -Lks https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip -o /root/gradle.zip && \

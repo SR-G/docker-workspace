@@ -3,8 +3,7 @@ FROM	tensin-base-alpine-java-jdk8
 EXPOSE	4040
 RUN	mkdir /opt/madsonic/
 WORKDIR	/opt/madsonic/
-VOLUME	["/var/madsonic/"]
-VOLUME	["/mp3"]
+VOLUME	["/var/madsonic/","/mp3/"]
 
 # Package Information
 ENV	PKG_VER 6.0

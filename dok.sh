@@ -52,8 +52,10 @@ function runImage {
     PORTS="-p $PORT $PORTS"
   done
   [[ ! -z "$PASSWORD" ]] && PARAMS_MISC=$(echo $PARAMS_MISC | sed 's/$PASSWORD/'$PASSWORD'/g')
-  [[ ! -z "$PARAMS_GLOBAL" ]] && PARAMS_GLOBAL=$(echo "$PARAMS_GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
-  echo docker run $PORTS $PARAMS_GLOBAL $PARAMS_MISC --name "$ALIAS" "$IMG"
+  [[ ! -z "$GLOBAL" ]] && GLOBAL=$(echo "$GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
+  CMD="docker run $PORTS $GLOBAL $PARAMS_MISC --name $ALIAS $IMG"
+  echo "$CMD"
+  eval "$CMD"
 }
 
 function stopImage {
