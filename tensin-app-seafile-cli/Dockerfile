@@ -12,5 +12,5 @@ RUN	yum install -y which python ca-certificates curl zsh && \
 	curl -skSL https://bintray.com/artifact/download/seafile-org/seafile/seafile-cli_${SEAFILE_CLI_VERSION}_${SEAFILE_CLI_PACKAGE}.tar.gz | tar xzf - -C /opt/ && \
 	mv /opt/seafile-cli-${SEAFILE_CLI_VERSION} /opt/seafile-cli/ && \
 	ln -s /opt/seafile-cli/seaf-cli /usr/bin/seafile && \
-	cd /opt/seafile-cli/ && ./seaf-cli init -d /root/.seafile-client 
+	cd /opt/seafile-cli/ && ./seaf-cli init -d /root/.seafile-client  && rm -f /opt/seafile-cli/*.txt
 
