@@ -71,9 +71,10 @@ function purgeImage {
 
 function buildImage {
   ALIAS="$1"
+  EXTRA="$2"
   # [[ ! -d "${ALIAS}" ]] && echo "No path [$ALIAS]" && exit 1
   echo "Now building [$ALIAS]"
-  docker build -t "${ALIAS}" "${ALIAS}"
+  docker build $EXTRA -t "${ALIAS}" "${ALIAS}"
 }
 
 
@@ -153,8 +154,8 @@ case "$OPERATION" in
   "build")
     buildImage "$IMAGE"
     ;;
-  "rebuild")
-    rebuildImage "$IMAGE"
+  "force-rebuild")
+    buildImage "$IMAGE" "--no-cache"
     ;;
   "restart")
     stopImage "$IMAGE"
@@ -187,7 +188,7 @@ cat <<EOF
     clean-images          Clean images
     clean-containers      Clean not running containers
     enter                 Enter through /bin/bash a running container
-    rebuild               Force rebuild a container
+    force-rebuild         Force rebuild a container
     graph                 Generates a .png of the containers graph
     list                  List configured containers and used ports
     list-containers       List configured containers
