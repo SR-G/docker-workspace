@@ -9,4 +9,4 @@ EXPOSE	32400
 
 ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh /plexupdate.sh
 # RUN	curl -sLo /plexupdate.sh https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh
-RUN	chmod a+x /plexupdate.sh && /plexupdate.sh -a -p -f -U
+RUN	sed -i 's/sudo //g' /plexupdate.sh && chmod a+x /plexupdate.sh && /plexupdate.sh -a -p -f -U
