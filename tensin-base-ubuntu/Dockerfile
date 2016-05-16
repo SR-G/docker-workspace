@@ -3,11 +3,6 @@ MAINTAINER SRG <serge.simon@gmail.com>
 
 ENV	DEBIAN_FRONTEND noninteractive
 ENV	TIMEZONE Europe/Paris
-ENV	LANG fr_FR.UTF-8
-ENV	LANGUAGE fr_FR.UTF-8
-ENV	LC_ALL fr_FR.UTF-8
-ENV	HOME /root
-ENV	TERM xterm
 
 # Activate multiverse, make sure the package repository is up to date and update ubuntu
 RUN	sed -i 's/http:\/\/archive/http:\/\/fr.archive/g' /etc/apt/sources.list && \
@@ -19,6 +14,13 @@ RUN	sed -i 's/http:\/\/archive/http:\/\/fr.archive/g' /etc/apt/sources.list && \
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	dpkg-reconfigure tzdata && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Keep this after packages have been installed
+ENV	LANG fr_FR.UTF-8
+ENV	LANGUAGE fr_FR.UTF-8
+ENV	LC_ALL fr_FR.UTF-8
+ENV	HOME /root
+ENV	TERM xterm
 
 # Insert bashrc
 ADD	bashrc /root/.bashrc

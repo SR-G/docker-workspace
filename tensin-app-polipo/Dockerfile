@@ -8,6 +8,7 @@ ENV	POLIPO_VERSION	1.1.1
 
 RUN	mkdir -p /etc/polipo /cache /opt/ && \
 	apk --update add ca-certificates build-base texinfo git && \
+#	apt-get update && apt-get install -y ca-certificates git texinfo build-essential install-info && \
 	git clone https://github.com/jech/polipo.git /opt/polipo/ && \
 	cd /opt/polipo/ && \
 	git checkout polipo-$POLIPO_VERSION && \

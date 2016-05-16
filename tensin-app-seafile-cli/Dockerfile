@@ -2,7 +2,7 @@ FROM    centos
 
 VOLUME	["/data/"]
 WORKDIR	/data/
-CMD	/usr/bin/seafile start -c /root/.ccnet && tail -f /var/log/yum.log
+CMD	/usr/bin/seafile start -c /root/.ccnet && tail -F /etc/hostname
 
 ENV	SEAFILE_CLI_PACKAGE	x86-64
 ENV	SEAFILE_CLI_VERSION	4.3.2
