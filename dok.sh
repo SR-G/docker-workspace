@@ -187,7 +187,7 @@ cat <<EOF
     clean-images          Clean images
     clean-containers      Clean not running containers
     enter                 Enter through /bin/bash a running container
-    force-rebuuild        Force rebuild a container
+    rebuild               Force rebuild a container
     graph                 Generates a .png of the containers graph
     list                  List configured containers and used ports
     list-containers       List configured containers
