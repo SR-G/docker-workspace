@@ -10,7 +10,8 @@ PATH_ADDONS="${OPENHAB_DEST}/addons/"
 PATH_ADDONS_AVAILABLE="${OPENHAB_DEST}/addons-available/"
 PATH_ADDONS_AVAILABLE_OH1="${OPENHAB_DEST}/addons-available-oh1/"
 OPENHAB_URL_RELEASES="https://bintray.com/artifact/download/openhab/bin" 
-OPENHAB_URL_SNAPSHOTS="https://openhab.ci.cloudbees.com/job/openHAB-Distribution/lastSuccessfulBuild/artifact/distributions/openhab-offline/target/"
+OPENHAB2_URL_SNAPSHOTS="https://openhab.ci.cloudbees.com/job/openHAB-Distribution/lastSuccessfulBuild/artifact/distributions/openhab-offline/target/"
+PIPEWORK_URL="https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework"
 
 # ========================================================
 # === FUNCTIONS
@@ -25,7 +26,7 @@ function installOpenHAB {
 	step "Installing OpenHAB version [${OPENHAB_VERSION}]"
 	IS_SNAPSHOT=$(echo "$OPENHAB_VERSION"|grep "SNAPSHOT"|wc -l)
 	if [[ "$IS_SNAPSHOT" -eq 1 ]] ; then
-		OPENHAB_URL="${OPENHAB_URL_SNAPSHOTS}openhab-offline-${OPENHAB_VERSION}.zip"
+		OPENHAB_URL="${OPENHAB2_URL_SNAPSHOTS}openhab-offline-${OPENHAB_VERSION}.zip"
 	else
 		OPENHAB_URL="${OPENHAB_URL_RELEASES}openhab-offline-${OPENHAB_VERSION}.zip"
 	fi
@@ -63,7 +64,7 @@ function installHabMin {
 	step "Installing HABmin version [$HABMIN_VERSION]"
 	# https://github.com/cdjackson/HABmin2/blob/master/output/org.openhab.ui.habmin_2.0.0.SNAPSHOT-0.1.6.jar
 	# https://github.com/cdjackson/HABmin2/releases/download/0.1.5/org.openhab.ui.habmin_2.0.0.201605241605.jar
-	HABMIN_URL="https://github.com/cdjackson/HABmin2/blob/master/output/org.openhab.ui.habmin_${HABMIN_VERSION}.jar"
+	HABMIN_URL="https://github.com/cdjackson/HABmin2/raw/master/output/org.openhab.ui.habmin_${HABMIN_VERSION}.jar"
 	mkdir -p "${PATH_ADDONS_AVAILABLE}"
 	curl -sLo "${PATH_ADDONS_AVAILABLE}/org.openhab.ui.habmin-${HABMIN_VERSION}.jar" "${HABMIN_URL}"
 }
@@ -88,12 +89,15 @@ function installOpenHAB1Addons {
 	OPENHAB1_VERSION="$1"
 	step "Restoring addons from OpenHAB [$OPENHAB1_VERSION]"
 	mkdir -p ${PATH_ADDONS_AVAILABLE_OH1}
-	# OPENHAB1_URL="https://openhab.ci.cloudbees.com/job/openHAB/lastStableBuild/artifact/distribution/target/"
-	OPENHAB1_URL="https://bintray.com/artifact/download/openhab/bin/"
+	IS_SNAPSHOT=$(echo "$OPENHAB1_VERSION"|grep "SNAPSHOT"|wc -l)
+        if [[ "$IS_SNAPSHOT" -eq 1 ]] ; then
+                OPENHAB1_URL="${OPENHAB2_URL_SNAPSHOTS}" # todo
+        else
+                OPENHAB1_URL="${OPENHAB_URL_RELEASES}"
+        fi
 	for ITEM in addons runtime ; do
 		P="distribution-${OPENHAB1_VERSION}-${ITEM}.zip"
 		curl -sLo /tmp/$P "${OPENHAB1_URL}${P}"
-
 	done
 	unzip -q /tmp/distribution-${OPENHAB1_VERSION}-addons.zip -d ${PATH_ADDONS_AVAILABLE_OH1}
 	unzip -j /tmp/distribution-${OPENHAB1_VERSION}-runtime.zip server/plugins/org.openhab.io.transport.mqtt* -d ${PATH_ADDONS_AVAILABLE_OH1}
@@ -104,7 +108,7 @@ function installOpenHAB1Addons {
 
 function installPipework {
 	mkdir -p /opt/pipework 
-	curl -sLo /opt/pipework/pipework https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework 
+	curl -sLo /opt/pipework/pipework "{PIPEWORK_URL}"
 	chmod a+x /opt/pipework/pipework
 }
 
@@ -120,5 +124,5 @@ case "$ACTION" in
   "install-openhab1-addons") installOpenHAB1Addons "$2" ;;
   "install-pipework") installPipework ;;
   "restore-addons") restoreAddons ;;
-  *) echo "Unknown command, available commands : install-openhab2, install-sigar, install-habmin, install-openhab1-addons, install-pipework, restore-addons" 
+  *) echo "Unknown command, available commands : install-openhab2 <version>, install-sigar <version>, install-habmin <version>, install-openhab1-addons <version>, install-pipework, restore-addons" 
 esac
