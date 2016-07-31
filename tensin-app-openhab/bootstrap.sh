@@ -88,6 +88,7 @@ function installHabMin {
 	rm -rf "${NEW_VERSION}/habmin/HABmin-master/addons/"
 	# ln -s "../../habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
 	mv "${NEW_VERSION}/habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
+	rm -rf "${NEW_VERSION}/habmin/"
 }
 
 function restoreTwitterToken {
