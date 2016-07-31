@@ -86,12 +86,13 @@ function installHabMin {
 	cp "${NEW_VERSION}/habmin/HABmin-master/addons/"*.jar "${PATH_ADDONS_ACTIVATED}"
 	rm -rf "${NEW_VERSION}/habmin/HABmin-master/addons/"
 	# ln -s "../../habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
-	cp -Rp "${NEW_VERSION}/habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
+	mv "${NEW_VERSION}/habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
+	rm -rf "${NEW_VERSION}/habmin"
 }
 
 function restoreTwitterToken {
 	step "Restoring twitter token"
-	cp "${NEW_VERSION}/${OPENHAB_RUNTIME}/etc/twitter.pin" "${NEW_VERSION}/${OPENHAB_RUNTIME}/"
+	ln -s "${NEW_VERSION}/${OPENHAB_RUNTIME}/etc/twitter.pin" "${NEW_VERSION}/${OPENHAB_RUNTIME}/"
 }
 
 function restoreAddons {
@@ -160,8 +161,8 @@ installNewSnapshot
 installSigar
 installHabMin
 restoreAddons
-restoreTwitterToken
 restoreSymLinks
+restoreTwitterToken
 cleaUselessFiles
 postDownload
 step "$(date) - End."
