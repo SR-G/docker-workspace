@@ -14,6 +14,7 @@ OPENHAB_DISTRIBUTION="zips/"
 PATH_ADDONS_ACTIVATED="${NEW_VERSION}/${OPENHAB_RUNTIME}/addons/"
 PATH_ADDONS_DEACTIVATED="${NEW_VERSION}/${OPENHAB_RUNTIME}/addons-deactivated/"
 
+
 # ========================================================
 # === FUNCTIONS
 # ========================================================
@@ -54,7 +55,7 @@ function installNewSnapshot {
 		curl -sLo "${OPENHAB_DISTRIBUTION}/${OPENHAB_ITEM}" "${OPENHAB_URL}/${OPENHAB_ITEM}"
 		substep "Unzipping [$ITEM]"
 		[[ ! -d "${NEW_VERSION}/${DEST}" ]] && mkdir -p "${NEW_VERSION}/${DEST}"
-		unzip -q "${OPENHAB_DISTRIBUTION}/${OPENHAB_ITEM}" -d "${NEW_VERSION}/${DEST}"
+		unzip -o -q "${OPENHAB_DISTRIBUTION}/${OPENHAB_ITEM}" -d "${NEW_VERSION}/${DEST}"
 		rm "${OPENHAB_DISTRIBUTION}/${OPENHAB_ITEM}" >/dev/null 2>&1
 	done
 }
@@ -82,11 +83,11 @@ function installHabMin {
 	substep "Downloading [habmin]"
 	curl -sLo "${OPENHAB_DISTRIBUTION}/habmin-master.zip" "${HABMIN_URL}"
 	substep "Unzipping [habmin]"
-	unzip -q "${OPENHAB_DISTRIBUTION}/habmin-master.zip" -d "${NEW_VERSION}/habmin/"
+	unzip -o -q "${OPENHAB_DISTRIBUTION}/habmin-master.zip" -d "${NEW_VERSION}/habmin/"
 	cp "${NEW_VERSION}/habmin/HABmin-master/addons/"*.jar "${PATH_ADDONS_ACTIVATED}"
 	rm -rf "${NEW_VERSION}/habmin/HABmin-master/addons/"
 	# ln -s "../../habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
-	cp -Rp "${NEW_VERSION}/habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
+	mv "${NEW_VERSION}/habmin/HABmin-master/" "${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps/habmin"
 }
 
 function restoreTwitterToken {
@@ -106,11 +107,11 @@ function restoreAddons {
 	  fi    
 	done
 
-	echo "Deactivated addons : "
+	echo "\nDeactivated addons : "
 	ls -1 "${PATH_ADDONS_DEACTIVATED}"*.jar
 
 	echo ""
-	echo "Activated addons : "
+	echo "\nActivated addons : "
 	ls -1 "${PATH_ADDONS_ACTIVATED}"*.jar
 }
 
@@ -155,6 +156,7 @@ function restoreSymLinks {
 
 [[ "$#" -ne 1 ]] && usage 
 checkPrerequesites
+[[ ! -d "$PATH_ADDONS_ACTIVATED" ]] && mkdir -p -m 775 "$PATH_ADDONS_ACTIVATED"
 echo "$(date) - Will now install new version [$NEW_VERSION]"
 installNewSnapshot 
 installSigar
