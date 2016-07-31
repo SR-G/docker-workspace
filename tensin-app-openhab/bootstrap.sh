@@ -92,7 +92,7 @@ function installHabMin {
 
 function restoreTwitterToken {
 	step "Restoring twitter token"
-	ln -s "${NEW_VERSION}/${OPENHAB_RUNTIME}/etc/twitter.pin" "${NEW_VERSION}/${OPENHAB_RUNTIME}/"
+	ln -s "/opt/openhab/${NEW_VERSION}/${OPENHAB_RUNTIME}/etc/twitter.pin" "/opt/openhab/${NEW_VERSION}/${OPENHAB_RUNTIME}/"
 }
 
 function restoreAddons {
