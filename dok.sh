@@ -43,6 +43,7 @@ function enterImage {
 
 function runImage {
   ALIAS="$1"
+  PREVIEW="$2"
   cat "$CONFIG_ALIAS_FILENAME" | grep "^${ALIAS}"$'\t' | read ALIAS IMG PARAMS_PORTS PARAMS_MISC
   [[ -z "$ALIAS" ]] && echo "Alias [$1] undefined in [$CONFIG_ALIAS_FILENAME]" && exit 1
   [[ -z "$IMG" ]] && IMG="$ALIAS" 
@@ -55,7 +56,7 @@ function runImage {
   [[ ! -z "$GLOBAL" ]] && GLOBAL=$(echo "$GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
   CMD="docker run $PORTS $GLOBAL $PARAMS_MISC --name $ALIAS $IMG"
   echo "$CMD"
-  eval "$CMD"
+  [[ ! -z "$PREVIEW" ]] && eval "$CMD"
 }
 
 function stopImage {
@@ -142,6 +143,9 @@ case "$OPERATION" in
   "run")
     runImage "$IMAGE"
     ;;
+  "preview")
+    runImage "$IMAGE" "PREVIEW"
+    ;;
   "start")
     startImage "$IMAGE"
     ;;
@@ -198,6 +202,7 @@ cat <<EOF
     rebuild               Rebuild a container
     restart               Stop and start again a container
     run                   Run for the first time a container
+    preview		  Preview run
     start                 Start a container
     stop                  Stop a container
 EOF
