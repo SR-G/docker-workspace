@@ -95,6 +95,13 @@ function restoreTwitterToken {
 	ln -s "/opt/openhab/${NEW_VERSION}/${OPENHAB_RUNTIME}/etc/twitter.pin" "/opt/openhab/${NEW_VERSION}/${OPENHAB_RUNTIME}/"
 }
 
+function restoreWebappAddons {
+	step "Restoring webapp addons"
+	ls -1 "/opt/openhab/data/webapps/" | while read F ; do
+	  ln -s "/opt/openhab/data/webapps/${F}" "/opt/openhab/${NEW_VERSION}/${OPENHAB_RUNTIME}/webapps"
+	done
+}
+
 function restoreAddons {
 	step "Restoring addons"
 	[[ ! -d "$PATH_ADDONS_DEACTIVATED" ]] && mkdir -p -m 775 "$PATH_ADDONS_DEACTIVATED"
@@ -163,6 +170,7 @@ installHabMin
 restoreAddons
 restoreSymLinks
 restoreTwitterToken
+restoreWebappAddons
 cleaUselessFiles
 postDownload
 step "$(date) - End."

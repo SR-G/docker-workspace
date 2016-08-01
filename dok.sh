@@ -56,7 +56,7 @@ function runImage {
   [[ ! -z "$GLOBAL" ]] && GLOBAL=$(echo "$GLOBAL" | sed 's/$ALIAS/'$ALIAS'/g')
   CMD="docker run $PORTS $GLOBAL $PARAMS_MISC --name $ALIAS $IMG"
   echo "$CMD"
-  [[ ! -z "$PREVIEW" ]] && eval "$CMD"
+  [[ -z "$PREVIEW" ]] && eval "$CMD"
 }
 
 function stopImage {
