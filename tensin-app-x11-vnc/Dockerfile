@@ -5,6 +5,7 @@ CMD 	["/usr/bin/lxterminal"]
 
 EXPOSE 	5900/tcp
 VOLUME 	["/data]
+WORKDIR	/data
 
 ENV	X11_USER=xclient
 ENV	RESOLUTION=1680x879x16
