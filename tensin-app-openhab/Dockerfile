@@ -1,6 +1,6 @@
 FROM	tensin-base-alpine-java-jdk8
 
-EXPOSE	8081 8443
+EXPOSE	8080 8443
 WORKDIR	/opt/openhab/
 ADD	bootstrap.sh /opt/openhab/
 RUN	apk --update add curl unzip && \
