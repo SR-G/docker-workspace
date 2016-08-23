@@ -10,4 +10,5 @@ RUN	apk --update add curl unzip && \
 	unzip /opt/groovy.zip && \
 	rm -f /opt/groovy.zip && \
 	ln -s /opt/groovy-${GROOVY_VERSION} /opt/groovy && \
-	sed -ie '274,275d' /opt/groovy/bin/startGroovy
+	rm /bin/sh && ln -s /bin/bash /bin/sh
+	#sed -ie '274,275d' /opt/groovy/bin/startGroovy
