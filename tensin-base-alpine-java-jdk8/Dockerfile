@@ -1,17 +1,19 @@
 FROM	tensin-base-alpine
 
 # Install cURL
-ENV	GLIBC_VERSION	2.23-r1
-RUN	apk --update add curl ca-certificates tar && \
-	curl -sLo /tmp/glibc-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-${GLIBC_VERSION}.apk && \
-	curl -sLo /tmp/glibc-bin-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-bin-${GLIBC_VERSION}.apk && \
-	curl -sLo /tmp/glibc-i18n-${GLIBC_VERSION}.apk https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-i18n-${GLIBC_VERSION}.apk && \
-	apk add --allow-untrusted /tmp/glibc-${GLIBC_VERSION}.apk /tmp/glibc-bin-${GLIBC_VERSION}.apk /tmp/glibc-i18n-${GLIBC_VERSION}.apk && \
+ENV	GLIBC_VERSION	2.23-r3
+ENV	GLIBC_URL https://github.com/sgerrand/alpine-pkg-glibc/releases/download/unreleased
+RUN	apk --no-cache --update add curl ca-certificates tar && \
+	echo "${GLIBC_URL}/glibc-${GLIBC_VERSION}.apk" && \
+	curl -sLo /tmp/glibc-${GLIBC_VERSION}.apk ${GLIBC_URL}/glibc-${GLIBC_VERSION}.apk && \
+	curl -sLo /tmp/glibc-bin-${GLIBC_VERSION}.apk ${GLIBC_URL}/glibc-bin-${GLIBC_VERSION}.apk && \
+	curl -sLo /tmp/glibc-i18n-${GLIBC_VERSION}.apk ${GLIBC_URL}/glibc-i18n-${GLIBC_VERSION}.apk && \
+	apk add --no-cache --allow-untrusted /tmp/glibc-${GLIBC_VERSION}.apk /tmp/glibc-bin-${GLIBC_VERSION}.apk /tmp/glibc-i18n-${GLIBC_VERSION}.apk && \
 	/usr/glibc-compat/bin/localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
 
 # Java Version
 ENV	JAVA_VERSION_MAJOR 8
-ENV	JAVA_VERSION_MINOR 92
+ENV	JAVA_VERSION_MINOR 102
 ENV	JAVA_VERSION_BUILD 14
 ENV	JAVA_PACKAGE       jdk
 

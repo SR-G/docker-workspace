@@ -8,9 +8,9 @@ CMD	["/run.sh"]
 # fix php-fpm "Error relocating /usr/bin/php-fpm: __flt_rounds: symbol not found" bug wih musl
 RUN	apk update \
 	&& apk add bash nginx ca-certificates \
-	php-fpm php-json php-zlib php-xml php-pdo php-phar php-openssl \
-	php-pdo_mysql php-mysqli \
-	php-gd php-iconv php-mcrypt \
+	php5-fpm php5-json php5-zlib php5-xml php5-pdo php5-phar php5-openssl \
+	php5-pdo_mysql php5-mysqli \
+	php5-gd php5-iconv php5-mcrypt \
 	musl
 
 RUN rm -rf /var/cache/apk/*

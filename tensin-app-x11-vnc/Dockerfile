@@ -1,6 +1,6 @@
 FROM	tensin-base-ubuntu-java-jdk8
 
-ENTRYPOINT ["/bin/bash" "/x11-src/startup.sh"]
+ENTRYPOINT ["/bin/bash","/x11-src/startup.sh"]
 CMD 	["/usr/bin/lxterminal"]
 
 EXPOSE 	5900/tcp

@@ -1,6 +1,6 @@
 FROM	tensin-base-ubuntu
 
-VOLUME	["/config", "/data"]
+VOLUME	["/config"]
 CMD	["/usr/sbin/start_pms"]
 WORKDIR	/config
 ENV	HOME /config

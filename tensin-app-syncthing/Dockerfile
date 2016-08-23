@@ -3,8 +3,8 @@ FROM	tensin-base-alpine
 EXPOSE	8080 21025 22000
 
 ENV	UID 1027
-ENV	GOSU_VERSION 1.7
-ENV	SYNCTHING_VERSION 0.12.14
+ENV	GOSU_VERSION 1.9
+ENV	SYNCTHING_VERSION 0.14.3
 
 RUN	echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
 	apk --update add curl ca-certificates shadow
