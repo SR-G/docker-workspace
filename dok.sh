@@ -120,6 +120,22 @@ function graph {
   docker run --rm -v /var/run/docker.sock:/var/run/docker.sock centurylink/image-graph > $DEST
 }
 
+function extractDockerfile {
+  IMAGE="$1"
+  docker history --no-trunc "$IMAGE" | sed -n -e 's,.*/bin/sh -c #(nop) \(MAINTAINER .*[^ ]\) *0 B,\1,p' | head -1
+  docker inspect --format='{{range $e := .Config.Env}}
+ENV {{$e}}
+{{end}}{{range $e,$v := .Config.ExposedPorts}}
+EXPOSE {{$e}}
+{{end}}{{range $e,$v := .Config.Volumes}}
+VOLUME {{$e}}
+{{end}}{{with .Config.User}}USER {{.}}{{end}}
+{{with .Config.WorkingDir}}WORKDIR {{.}}{{end}}
+{{with .Config.Entrypoint}}ENTRYPOINT {{json .}}{{end}}
+{{with .Config.Cmd}}CMD {{json .}}{{end}}
+{{with .Config.OnBuild}}ONBUILD {{json .}}{{end}}' "$IMAGE"
+}
+
 OPERATION=$(echo "$1" | tr "[A-Z]" "[a-z]")
 IMAGE="$2"
 
@@ -183,6 +199,9 @@ case "$OPERATION" in
     DEST="$2"
     graph "$DEST"
     ;;
+  "extract-dockerfile")
+    extractDockerfile "$IMAGE"
+    ;;
   *)
     echo "Commands:"
 cat <<EOF
@@ -191,6 +210,7 @@ cat <<EOF
     clean-logs            Clean logs
     clean-images          Clean images
     clean-containers      Clean not running containers
+    extract-dockerfile    Create docker file from image
     enter                 Enter through /bin/bash a running container
     force-rebuild         Force rebuild a container
     graph                 Generates a .png of the containers graph

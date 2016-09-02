@@ -1,7 +1,7 @@
 FROM	tensin-base-alpine
 
 EXPOSE	1883 9883
-VOLUME	["/var/lib/mosquitto", "/etc/mosquitto"]
+VOLUME	["/var/lib/mosquitto", "/etc/mosquitto", "/etc/mosquitto.d"]
 WORKDIR	/var/lib/mosquitto/
 
 CMD	chown mosquitto:mosquitto -R /var/lib/mosquitto && mosquitto -c /etc/mosquitto/mosquitto.conf
