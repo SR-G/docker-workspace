@@ -1,0 +1,32 @@
+#
+#Tue Aug 30 21:00:28 CEST 2016
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.approxMaxHeight=2147483647
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.approxMaxWidth=2147483647
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.approxMinHeight=0
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.approxMinWidth=0
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.artCount=AT_LEAST_ONE
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.createBackups=false
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.embed=ADD
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.filename=folder
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.maxDataSizeBytes=9223372036854775807
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.shrinkTooLargeAutomatically=false
+com.elsten.bliss.music.policy.coverartpolicy.CoverArtPolicy.upgradeTooSmallAutomatically=false
+com.elsten.bliss.music.policy.fileorg.FileOrgPolicy.changeFilePaths=MANUALLY
+com.elsten.bliss.music.policy.fileorg.FileOrgPolicy.filenamePattern=<album_artist>/<album_name>/<tracknumber>?|<tracknumber\:auto>-|<track_name>.<fileextension>
+com.elsten.bliss.music.policy.fileorg.FileOrgPolicy.isCustom=false
+com.elsten.bliss.music.policy.tag.tagtype.TagTypePolicy.changeTypes=MANUALLY
+com.elsten.bliss.music.policy.tag.tagtype.TagTypePolicy.mp3Id3v1=allow
+com.elsten.bliss.music.policy.tag.tagtype.TagTypePolicy.mp3Id3v2=mp3Id3v23
+com.elsten.bliss.music.policy.tag.tagtype.TagTypePolicy.mp3Id3v23=allow
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.allowableGenres=<html>,<head><title>301 Moved Permanently</title></head>,<body bgcolor\="white">,<center><h1>301 Moved Permanently</h1></center>,<hr><center>CloudFront</center>,</body>,</html>
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.enforceStandardArtist=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.moveFeaturing=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.tag.genre.autopopulate=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.tag.genre.required=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.tag.year.autopopulate=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.tag.year.required=false
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.trackArtistsPerAlbum=allowVarying
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.trackNumberFormat=ignore
+com.elsten.bliss.music.policy.tagsync.TagSyncPolicy.trackNumberFormatChangeAutomatically=false
+musicLibrary=/mp3
+platformState=MANUAL

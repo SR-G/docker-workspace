@@ -1,0 +1,33 @@
+<lift:surround with="default" at="content">
+<body class="top-navigation full-height-layout">
+
+	<div data-lift="embed?what=cookie-optout" />
+
+		<div id="page-wrapper" class="gray-bg">
+			<div data-lift="embed?what=nav" />
+
+			<lift:bind name="header" />
+			
+			<lift:bind name="content" />
+			
+		</div>
+		
+			<lift:Template.showUservoice>
+				<script type="text/javascript">
+					var uvOptions = {};
+					(function() {
+						var uv = document.createElement('script');
+						uv.type = 'text/javascript';
+						uv.async = true;
+						uv.src = ('https:' == document.location.protocol ? 'https://'
+								: 'http://')
+								+ 'widget.uservoice.com/HiVr9F6qWLChLXFoDtkiw.js';
+						var s = document.getElementsByTagName('script')[0];
+						s.parentNode.insertBefore(uv, s);
+					})();
+				</script>
+			</lift:Template.showUservoice>
+	
+</body>
+	
+</lift:surround>

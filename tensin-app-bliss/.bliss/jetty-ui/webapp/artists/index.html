@@ -1,0 +1,38 @@
+<lift:surround with="top-level-activity" at="activityLayout">
+	<head>
+<title>Artists - bliss</title>
+	</head>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="file-manager">
+						<h5>Artists per page</h5>
+						<lift:embed what="elementsPerPage" />
+
+						<div class="clearfix"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-9">
+			<lift:Artists.pageNavigationNav />
+
+			<div id="liveCompliancy" class="row artistsList" data-lift="Artists.list">
+				<div class="col-sm-3 col-artist">
+					<div class="contact-box">
+						<a class="artistName lead" href="/artists/TheArtist">Tina Turner</a>
+					</div>
+				</div>
+			</div>
+			<lift:Artists.pageNavigationNav />
+		</div>
+
+	</div>
+
+
+</lift:surround>

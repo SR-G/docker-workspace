@@ -1,0 +1,40 @@
+<lift:surround with="top-level-activity" at="activityLayout">
+	<head>
+<title>Albums - bliss</title>
+    <link href="/classpath/ui/inspinia/css/plugins/slick/slick.css" rel="stylesheet" />
+    <link href="/classpath/ui/inspinia/css/plugins/slick/slick-theme.css" rel="stylesheet" />
+
+	</head>
+
+
+	<lift:embed what="albumOverviewContent">
+		<lift:bind-at name="pageNavigation">
+			<lift:AlbumOverview.pageNavigationNav />
+		</lift:bind-at>
+		<lift:bind-at name="albumList">
+			<lift:AlbumOverview.list />
+		</lift:bind-at>
+	</lift:embed>
+
+    <!-- slick carousel-->
+    <script src="/classpath/ui/inspinia/js/plugins/slick/slick.min.js"></script>
+   	<script type="text/javascript" src="/classpath/ui/jquery.appear-1.1.1.min.js"></script>
+
+	<script type="text/javascript">
+	 	//<![CDATA[
+	 	function initSlick() {
+	 	    $('.slick-carousel').slick({
+	 	        infinite: true,
+	 	        slidesToShow: 3,
+	 	        slidesToScroll: 1,
+	 	       	variableWidth: true
+	 	    });
+	 	}
+	 	
+		$(document).ready(function(){
+			initSlick();
+		})	 	
+
+		//]]>
+	</script>
+</lift:surround>

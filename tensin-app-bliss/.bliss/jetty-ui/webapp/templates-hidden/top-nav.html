@@ -1,0 +1,57 @@
+<lift:surround with="default" at="content">
+<body class="top-navigation">
+
+	<div data-lift="embed?what=cookie-optout" />
+
+	
+		<div id="page-wrapper" class="gray-bg">
+			<div data-lift="embed?what=nav" />
+
+			<lift:bind name="activity-summary" />
+			
+			<lift:bind name="header" />
+			
+			<div class="wrapper wrapper-content">
+				<div class="container-fluid">
+					<lift:bind name="content" />
+				</div>
+			</div>
+			
+			<div class="footer">
+				<div class="pull-right">
+					<lift:Menu.item name="Update" />
+					|
+					<lift:Menu.item name="Help" />
+				</div>
+				<div>
+					bliss version:
+					<lift:Version.version />
+				</div>
+			</div>
+
+		</div>
+		
+		<script data-lift="Template.showUservoice" type="text/javascript">
+			(function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'http://widget.uservoice.com/Vdi7cPtsjnmOsQbtiuZeNA.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+			    UserVoice = window.UserVoice || [];
+			    UserVoice.push(['showTab', 'classic_widget', {
+			      mode: 'full',
+			      primary_color: '#cc6d00',
+			      link_color: '#007dbf',
+			      default_mode: 'support',
+			      forum_id: 21939,
+			      tab_label: 'Ideas',
+			      tab_color: '#03a0cb',
+			      tab_position: 'middle-right',
+			      tab_inverted: false
+			    }]);
+			})();
+		</script>
+	
+</body>
+	
+</lift:surround>

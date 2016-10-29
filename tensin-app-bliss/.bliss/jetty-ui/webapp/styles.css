@@ -1,0 +1,395 @@
+/*
+WIP new styles override. Pull in or create new styles as required when integrating new theme
+*/
+body {
+	font-family:	'Roboto', sans-serif;
+	font-size:		15px;
+}
+
+nav .logo.brand {
+	background-color:	inherit;
+	font-weight: 	700;
+	font-size: 		48px;
+	font-family: 	'Raleway', sans-serif;
+	color: 			#3697d9;
+}
+
+.brand {
+	font-family: 	'Raleway', sans-serif;
+	color: 			#3697d9;
+}
+
+.nav > li > a {
+	font-family: 	'Raleway', sans-serif;
+	font-weight:	normal;	
+}
+
+.top-navigation .nav > li > a.p-none {
+	padding:		0px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+/*
+If we don't have this, text-left is overridden by the more specific selector in form-horizontal to align right
+ */
+.form-horizontal .control-label.text-left {
+    text-align: left;
+}
+
+/*
+Fix for first row of form-group not aligning in INSPINIA: http://webapplayers.com/inspinia_admin-v2.4/tabs_horizontal_form.html
+ */
+.tabs-left .form-group {
+    float: 		left;
+    width: 		100%;
+}
+
+#right-sidebar {
+	width: 80%;
+	right: -80%;
+}
+
+.album-overview-grid-box > .file-box {
+	width:		auto;
+	float:		none;
+}
+
+.album-overview-grid-box > .file-box .file {
+	margin-right:	auto;
+}
+
+.album-overview-grid-box > .file-box .file .image {
+	height:		auto;
+}
+
+.album-overview-grid-box {
+	max-width:	275px;
+}
+
+.album-overview-grid-box .btn-primary {
+	margin-bottom:	5px;
+}
+
+.album-overview-grid-box .btn-truncate {
+	max-width:		100px;
+	overflow: 		hidden;
+  	text-overflow: 	ellipsis;
+  	white-space: 	nowrap;
+}
+
+.btn-truncate.ladda-button > span.ladda-label {
+	overflow: 		hidden;
+  	text-overflow: 	ellipsis;
+  	white-space: 	nowrap;
+  	display:		block;
+}
+
+/*
+We force to display:block because if inline, overflow=hidden means the height is changed
+*/
+.album-overview-grid-box .ladda-button > span.ladda-label {
+	max-width:		120px;
+}
+
+.vote-item .btn-truncate {
+	max-width:		250px;
+}
+
+.vote-item .ladda-button > span.ladda-label {
+	max-width:		260px;
+}
+
+.btn-fix-all.btn-truncate {
+	max-width:		150px;
+}
+.btn-fix-all.btn-truncate.ladda-button > span.ladda-label {
+	max-width:		160px;
+}
+.album-field-compliance .btn-truncate {
+	max-width:		170px;
+}
+.album-field-compliance .btn-truncate.ladda-button > span.ladda-label {
+	max-width:		180px;
+}
+
+
+.force-parent-line-height {
+	line-height: inherit !important;
+}
+
+.p-none {
+	padding:		0px !important;
+}
+
+.p-l-none {
+	padding-left:	0px !important;
+}
+
+.p-r-none {
+	padding-right:	0px !important;
+}
+
+.p-v-xs {
+	padding-top:	10px;
+	padding-bottom:	10px;
+}
+
+.p-h-xxs {
+	padding-left:	5px;
+	padding-right:	5px;
+}
+
+.p-h-xl {
+	padding-left:	40px;
+	padding-right:	40px;
+}
+
+.m-h-sm {
+	margin-left:	15px;
+	margin-right:	15px;
+}
+
+.ibox-content h5.m-t-md {
+	margin-top:		20px;
+}
+
+.fa-decorator-br {
+	margin: 		40% 0px 0px 50%;
+	font-size: 		120%;
+}
+
+.fa-decorator-bc {
+	margin: 		40% 0px 0px 0px;
+	font-size: 		120%;
+}
+
+.fa-decorator-bl {
+	margin: 		40% 50% 0px 0px;
+	font-size: 		120%;
+}
+
+.fa-decorator-tl {
+	margin: 		0px 50% 40% 0px;
+	font-size: 		120%;
+}
+
+.notice {
+	display:		block;	
+}
+
+.notice ul {
+	list-style: 	none outside none;
+	margin-left: 	0;
+	padding-left: 	0;
+}
+
+@media (max-width: 768px) {
+	.navbar-header.m-r-xl {
+		margin-right:	0;
+	}
+	.activity-summary.p-v-xs.p-h-xl {
+		padding-left:	0;
+		padding-right:	0;
+	}
+	.top-navigation .navbar-brand {
+		padding-left:	15px;
+	}
+	.top-navigation.body-small .wrapper.wrapper-content {
+		padding-top:	0;
+	}
+}
+
+.list-group-item.off .list-group-item-desc {
+	opacity:			0.4;
+}
+
+.tab-pane.off {
+	opacity:			0.4;
+}
+
+/* 
+Classes to ensure columns in a row have the same height
+*/ 
+.row.equal-height {
+	overflow:		hidden;	
+}
+
+[class*="col-"].equal-height {
+	margin-bottom: 	-99999px;
+	padding-bottom: 99999px;
+}
+
+.border-top {
+  border-top: 1px solid #e7eaec !important;
+}
+
+.cg-music-library .dropdown-menu {
+	max-height: 200px;
+	max-width: 	300px;
+	overflow: 	auto;
+}
+
+/* 
+Override CSS3 switch to make less restrictive, need to support hidden checkbox for Lift
+https://groups.google.com/forum/#!topic/liftweb/qju5PmCRxUE
+*/ 
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-switch {
+  right: 0;
+}
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-switch {
+  right: 0;
+}
+
+#configForm .tab-content {
+	padding-top:	25px;
+	padding-left:	25px;
+	padding-right:	25px;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+.parent-folder-heading {
+	font-family: 	monospace;
+	word-wrap: 		break-word;
+}
+
+.slick-header.ui-state-default {
+    height:	27px;
+}
+
+.slick-header-columns > .slick-header-column.ui-state-default {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    height:	27px;
+}
+
+.slick-row.ui-widget-content, .slick-cell {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.rotate-45-left:before {
+    display: block;
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.rotate-45-right:before {
+    display: block;
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.fh-breadcrumb.tags {
+	height: 		calc(100% - 235px);
+	overflow:		hidden;
+}
+
+/* A copy of the code selector from Insipina */
+.code {
+  background-color: #F9F2F4;
+  border-radius: 4px;
+  color: #ca4440;
+  font-size: 90%;
+  padding: 2px 4px;
+  white-space: nowrap;
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-weight:	normal;
+}
+
+div.loading-indicator {
+	z-index:			1;
+	position:			absolute;
+	background: 		rgba(255, 255, 255, 0.5);
+	left:				0;
+	right:				0;
+	top:				0;
+	bottom:				0;
+}
+
+div.loading-indicator > span {
+	margin-top:			50px;
+	background-color:	white;
+	padding:			20px;	
+}
+
+div.loading-indicator * {
+	vertical-align:		middle;
+}
+
+.in-progress {
+	opacity:			0.4;
+}
+
+.tabs-container .tabs-left > .nav-tabs {
+	margin-right:		0px;
+}
+
+.file-org-path-assessment {
+	overflow:			auto;
+}
+
+/*
+ * Clearing for grids. See http://stackoverflow.com/questions/24571062/gap-in-bootstrap-stacked-rows/24571644#24571644
+ */
+@media (max-width: 767px) {
+    .cover-art-alternatives>.clear-row:nth-child(6n)::before {
+      content: '';
+      display: table;
+      clear: both;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .cover-art-alternatives>.clear-row:nth-child(6n)::before {
+      content: '';
+      display: table;
+      clear: both;
+    }
+}
+@media (min-width: 1200px) {
+    .cover-art-alternatives>.clear-row:nth-child(6n)::before {  
+      content: '';
+      display: table;
+      clear: both;
+    }
+}
+
+.alternatives .slick-slider {
+	margin-bottom:	0;
+}
+
+.alternatives .slick-slide {
+	width:	220px;
+}
+
+#cookie-opt-out {
+	position:	fixed;
+	left:		0;
+	bottom:		0;
+	z-index:	99999;
+}
+
+#cookie-opt-out .alert {
+	margin:		0 auto;
+}
+
+.dropdown-menu {
+	max-height:	250px;
+	overflow-y:	auto;
+}

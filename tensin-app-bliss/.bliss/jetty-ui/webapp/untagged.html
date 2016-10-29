@@ -1,0 +1,225 @@
+<lift:surround with="top-level-activity" at="activityLayout">
+	<head>
+<title>Untagged - bliss</title>
+<link rel="stylesheet" href="/classpath/ui/slickgrid-2.1.0/slick.grid.css" type="text/css"></link>
+<link rel="stylesheet" href="/classpath/ui/slickgrid-2.1.0/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css"></link>
+<script type="text/javascript" src="/classpath/ui/jquery-ui-1.8.24.custom.min.js"></script>
+<script type="text/javascript" src="/classpath/ui/jquery.event.drag-2.2/jquery.event.drag-2.2.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.core.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.grid.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.editors.js"></script>
+
+			<link href="/classpath/ui/inspinia/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet"></link>
+			<script src="/classpath/ui/inspinia/js/plugins/ladda/spin.min.js"></script>
+			<script src="/classpath/ui/inspinia/js/plugins/ladda/ladda.min.js"></script>
+			<script src="/classpath/ui/inspinia/js/plugins/ladda/ladda.jquery.min.js"></script>
+	</head>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="file-manager">
+						<h5>Folders per page</h5>
+						<lift:embed what="elementsPerPage" />
+
+						<div class="clearfix"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-9">
+
+			<lift:Untagged.pageNavigationNav />
+
+			<div id="untaggedList" class="list" data-lift="Untagged.list">
+				<div class="candidate-release vote-item" data-lift="comet?type=UntaggedSuggestionActor">
+					<div class="untagged-row row">
+						<div class="candidate">
+							<script name="tag-data">
+								
+							</script>
+							<div class="col-md-9">
+								<div class="row">
+									<div class="parent-folder col-md-7">
+										<h3 class="parent-folder-heading m-t-none" title="/full/path/to/folder">/Blur/13/</h3>
+									</div>
+									<div class="col-md-5">
+										<h3 class="title m-t-none">13</h3>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-7">
+										<a class="btn-refresh btn btn-sm btn-white btn-sm ladda-button" data-spinner-color="#1ab394" data-style="zoom-in" title="Rescan">
+											<i class="fa fa-refresh fa-fw"></i>Refresh
+										</a>
+									</div>
+									<div class="col-md-5 float-e-margins">
+										<a class="btn-more-candidates btn btn-default btn-sm" role="button" data-toggle="collapse" data-target=".blur_13"
+											aria-expanded="false" aria-controls=".blur_13"><i class="fa fa-plus fa-fw"></i>more matches</a> <a
+											class="btn-show-tags btn btn-default btn-sm" role="button" data-toggle="collapse" data-target="#F987439871" aria-expanded="false"
+											aria-controls="#F987439871"> <i class="fa fa-table fa-fw"></i><span class="spn-show-tags">show tags</span></a>
+									</div>
+								</div>
+							</div>
+							<div class="actions col-md-3 text-right">
+								<a class="btn-tag-files btn btn-primary btn-lg"><i class="fa fa-tags fa-fw"></i>Tag files</a>
+							</div>
+
+						</div>
+					</div>
+					<div class="candidateFileDetail row collapse" id="F987439871">
+					
+						<div style="margin-bottom: 20px">
+							<span class="parent-folder-detail-title">/Blur/13/</span>
+						</div>
+						<div name="tag-files-div-id">
+							<div class="untaggedSlickGrid tagsSlickGrid"></div>
+							<span class="hideTagsInDetail"> <span class="hideTags">hide
+									tags</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<lift:Untagged.pageNavigationNav />
+
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		// <![CDATA[
+
+		$('.candidateFileDetail').on('shown.bs.collapse', function() {
+			
+			var divCandidateFileDetail = $(this);
+			initSlickGridForUntagged(divCandidateFileDetail.find('div.untaggedSlickGrid'), eval(divCandidateFileDetail.data('var')));
+			divCandidateFileDetail.parents('.candidate-release').find('.btn-tag-files').removeClass('disabled');
+		});
+		
+		function initSlickGridForUntagged(jqId, data) {
+			var grid;
+			var options = {
+				editable : true,
+				enableAddRow : false,
+				enableCellNavigation : true,
+				defaultColumnWidth : 160,
+				editCommandHandler : queueAndExecuteCommand,
+				autoHeight : true,
+				forceFitColumns : true,
+				headerRowHeight: 35,
+				rowHeight: 35
+			};
+
+			var columns = [ {
+				id : "File",
+				name : "File",
+				field : "fileName",
+				width : 17
+			}, {
+				id : "Album",
+				name : "Album",
+				field : "album",
+				width : 20,
+				editor : Slick.Editors.Text
+			}, {
+				id : "Artist",
+				name : "Artist",
+				field : "artist",
+				width : 20,
+				editor : Slick.Editors.Text
+			}, {
+				id : "DiscNumber",
+				name : "Disc",
+				field : "discNumber",
+				width : 30,
+				minWidth : 15,
+				maxWidth : 30,
+				editor : Slick.Editors.Text
+			}, {
+				id : "Track",
+				name : "Track",
+				field : "track",
+				width : 20,
+				editor : Slick.Editors.Text
+			}, {
+				id : "TrackNumber",
+				name : "#",
+				field : "trackNumber",
+				width : 30,
+				minWidth : 15,
+				maxWidth : 30,
+				editor : Slick.Editors.Text
+			} ];
+
+			var withDiscNumOrNoSuggestion = $.grep(data, function(col) {
+				return col.album.length == 0
+						|| col.hasOwnProperty('discNumber');
+			});
+			var hasDiscNum = withDiscNumOrNoSuggestion.length > 0;
+			if (!hasDiscNum) {
+				columns.splice(3, 1);
+			}
+
+			grid = new Slick.Grid(jqId, data, columns, options);
+
+			grid.onCellChange.subscribe(function(e, args) {
+				// value, row, tag
+				var tagId = grid.getColumns()[args.cell].id;
+				// update here
+				//loader.update($(grid.getActiveCellNode()), {value: args.item[tagId], sn: args.item["DT_RowId"], tag: tagId}, curryOnUpdateFail(args));
+			});
+
+			function curryOnUpdateFail(args) {
+				return function(cell, jqXHR, textStatus, errorThrown) {
+					onUpdateFail(cell, jqXHR, textStatus, errorThrown, args);
+				}
+			}
+
+			function onUpdateFail(cell, jqXHR, textStatus, errorThrown,
+					originalEvent) {
+				var command = commandQueue.pop();
+				if (command) {
+					var editCommand = command.editCommand;
+					editCommand.undo();
+					$(cell).popover({
+						container : "body",
+						title : "Failed to update tags",
+						html : "true",
+						content : jqXHR.responseText
+					}).popover('show');
+					grid.gotoCell(originalEvent.row, originalEvent.cell, true);
+				}
+			}
+
+			// TODO when commandQueue is empty, disable undo
+			var commandQueue = [];
+
+			function queueAndExecuteCommand(item, column, editCommand) {
+				var tagId = column.id;
+				commandQueue.push({
+					"editCommand" : editCommand,
+					sn : item.DT_RowId,
+					tag : tagId
+				});
+				editCommand.execute();
+			}
+			return grid;
+		}
+
+		$(document).ready(function(){
+			var l = $( '.ladda-button' ).ladda();
+		    l.click(function() {
+				// Start loading
+				$(this).ladda( 'start' );
+			});
+		});
+	    
+		// ]]>
+	</script>
+</lift:surround>

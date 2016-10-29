@@ -1,0 +1,266 @@
+<lift:surround with="full-height" at="content">
+	<head>
+<title>Tags - bliss</title>
+<link rel="stylesheet" href="/classpath/ui/slickgrid-2.1.0/slick.grid.css" type="text/css"></link>
+<link rel="stylesheet" href="/classpath/ui/slickgrid-2.1.0/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css"></link>
+<script type="text/javascript" src="/classpath/ui/jquery-ui-1.8.24.custom.min.js"></script>
+<script type="text/javascript" src="/classpath/ui/jquery.event.drag-2.2/jquery.event.drag-2.2.js"></script>
+<script type="text/javascript" src="/classpath/ui/slick.remotetagmodel.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.core.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.grid.js"></script>
+<script type="text/javascript" src="/classpath/ui/slickgrid-2.1.0/slick.editors.js"></script>
+	</head>
+
+	<lift:Tags.initWorkingCopy />
+
+	<lift:ignore>
+	The height of this div is required because the child is absolute positioned. Otherwise, the parent div
+	will not have a height and the following content will appear underneath the table.
+	</lift:ignore>
+
+	<lift:with-param name="header">
+
+		<div class="wrapper border-bottom white-bg page-heading m-t-lg">
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Tags</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>The Tags page is an advanced page to allow every textual music tag in every file to be changed. The table is sorted by folder,
+						then file.</p>
+					<a class="btn btn-default btn-sm" role="button" data-toggle="collapse" href="#collapse-more-help" aria-expanded="false" aria-controls="collapse-more-help">
+  						<i class="fa fa-plus fa-fw"></i>&nbsp;more help
+					</a>
+					<div class="collapse" id="collapse-more-help">
+					<p>To edit a tag, click inside the cell, edit the text and press [return] or one of the cursor keys. Changes are reflected
+						immediately in music files. All cells other than the file and folder are editable.</p>
+					<p>
+						To reverse changes, use the <i>Undo</i> button which reverses changes one at a time starting with the most recent.
+					</p>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</lift:with-param>
+
+	<div class="fh-breadcrumb tags">
+		<div class="row m-t-md m-b-sm m-l-none m-r-none">
+			<div class="col-md-6">
+				<div class="input-group">
+					<input id="txt-search-tags" type="text" class="form-control search-query" placeholder="Search for tags" /> <span
+						class="input-group-btn">
+						<button id="but-search-tags" class="btn btn-white" type="button">
+							<i class="fa fa-search fa-fw"></i>Search
+						</button>
+					</span>
+				</div>
+				<script type="text/javascript">
+					// <![CDATA[
+					$('#txt-search-tags').keyup(function(e) {
+						if (e.keyCode == 13) {
+							$('#but-search-tags').click();
+						}
+					});
+					// ]]>
+				</script>
+			</div>
+
+			<div class="col-md-6">
+				<div class="btn-toolbar pull-right">
+					<a class="btn btn-sm btn-default" onclick="undo()" title="Reverse the latest change"><i class="fa fa-undo fa-fw"></i>Undo</a> <a
+						class="btn btn-sm btn-default" title="Choose columns in the tags page" role="button" data-toggle="collapse"
+						data-target="#choose-columns"> <i class="fa fa-list fa-fw"></i>Choose columns
+					</a>
+				</div>
+			</div>
+			<div id="choose-columns" class="col-md-12 m-t-sm collapse">
+				<div class="well">
+					<div class="tagChooser">
+						<h3>Common tags</h3>
+						<ul class="list-inline commonTags" data-lift="Tags.commonTagCheckboxes">
+							<li>
+								<label name="lbl-tag"> <input type="checkbox" name="chk-tag"></input> <span name="tag-name">Remember me</span></label>
+							</li>
+						</ul>
+						<h3>All tags</h3>
+						<p>
+						Raw tags written in <code>monospace</code> font represent the raw field name inside the music file. Abstract tag names written in <span class="font-family:sans-serif">sans serif</span> font write to the commonly accepted (de facto) fields for said data (for example, Album Artist will write to <code>TPE2</code> in ID3 tags).
+						</p>
+						<ul class="list-inline availableTags"  data-lift="Tags.availableTagCheckboxes">
+							<li>
+								<label name="lbl-tag"> <input type="checkbox" name="chk-tag"></input> <span name="tag-name">Remember me</span></label>
+							</li>
+						</ul>
+						<script type="text/javascript">
+							// <![CDATA[
+							function onColCheckboxClick() {
+								var index = $(this).attr('value');
+								var isVis = $(this).is(':checked');
+								var columns = grid.getColumns();
+								var sColDef = $(this).data('coldef');
+								eval('var colDef = ' + sColDef);
+								if (isVis) {
+									columns.push(colDef);
+								} else {
+									for ( var i = columns.length - 1; i >= 0; i--) {
+										if (columns[i].field === colDef.field) {
+											columns.splice(i, 1);
+										}
+									}
+								}
+								grid.setColumns(columns);
+							};
+
+							$('ul.availableTags li input').click(
+									onColCheckboxClick);
+							$('ul.commonTags li input').click(
+									onColCheckboxClick);
+							// ]]>
+						</script>
+					</div>
+				</div>
+				<script type="text/javascript">
+					$(document).ready(function() {
+						$('div.tagChooser i.help').popover();
+					});
+				</script>
+			</div>
+
+		</div>
+
+		<div id="tagsSlickGrid" class="tagsSlickGrid" style="height: calc(100% - 65px)"></div>
+		<lift:Tags.slickGridColumns />
+
+		<script type="text/javascript">
+			// <![CDATA[
+			var grid;
+			var loader = new Slick.Data.RemoteModel();
+
+			var options = {
+				editable : true,
+				enableAddRow : false,
+				enableCellNavigation : true,
+				defaultColumnWidth : 160,
+				editCommandHandler : queueAndExecuteCommand,
+				forceFitColumns : true
+			};
+
+			var loadingIndicator = null;
+
+			$(function() {
+				grid = new Slick.Grid("div#tagsSlickGrid", loader.data,
+						slickGridCols, options);
+
+				grid.onViewportChanged.subscribe(function(e, args) {
+					var vp = grid.getViewport();
+					loader.ensureData(vp.top, vp.bottom);
+				});
+
+				grid.onSort.subscribe(function(e, args) {
+					loader.setSort(args.sortCol.field, args.sortAsc ? 1 : -1);
+					var vp = grid.getViewport();
+					loader.ensureData(vp.top, vp.bottom);
+				});
+
+				grid.onCellChange.subscribe(function(e, args) {
+					// value, row, tag
+					var tagId = grid.getColumns()[args.cell].id;
+					loader.update($(grid.getActiveCellNode()), {
+						value : args.item[tagId],
+						sn : args.item["DT_RowId"],
+						tag : tagId
+					}, curryOnUpdateFail(args));
+				});
+
+				loader.onDataLoading.subscribe(showDataLoading);
+
+				loader.onDataLoaded.subscribe(function(e, args) {
+					for ( var i = args.from; i <= args.to; i++) {
+						grid.invalidateRow(i);
+					}
+
+					grid.updateRowCount();
+					grid.render();
+
+					loadingIndicator.fadeOut();
+				});
+
+				$("#but-search-tags").click(function() {
+					showDataLoading();
+					loader.setSearch($("#txt-search-tags").val());
+					var vp = grid.getViewport();
+					loader.ensureData(vp.top, vp.bottom);
+				});
+
+				// load the first page
+				grid.onViewportChanged.notify();
+			});
+
+			function showDataLoading() {
+				if (!loadingIndicator) {
+					loadingIndicator = $("<div class='loading-indicator center-block text-center' style='width:100%'><span><span class='lead'>Loading...</span><i class='fa fa-circle-o-notch fa-spin fa-2x fa-fw'></i></span></div>");
+					var $g = $("#tagsSlickGrid");
+					$g.append(loadingIndicator);
+				}
+
+				loadingIndicator.show();
+			}
+
+			function curryOnUpdateFail(args) {
+				return function(cell, jqXHR, textStatus, errorThrown) {
+					onUpdateFail(cell, jqXHR, textStatus, errorThrown, args);
+				}
+			}
+
+			function onUpdateFail(cell, jqXHR, textStatus, errorThrown,
+					originalEvent) {
+				var command = commandQueue.pop();
+				if (command) {
+					var editCommand = command.editCommand;
+					editCommand.undo();
+					$(cell).popover({
+						container : "body",
+						title : "Failed to update tags",
+						html : "true",
+						content : jqXHR.responseText
+					}).popover('show');
+					grid.gotoCell(originalEvent.row, originalEvent.cell, true);
+				}
+			}
+
+			// TODO when commandQueue is empty, disable undo
+			var commandQueue = [];
+
+			function queueAndExecuteCommand(item, column, editCommand) {
+				var tagId = column.id;
+				commandQueue.push({
+					"editCommand" : editCommand,
+					sn : item.DT_RowId,
+					tag : tagId
+				});
+				editCommand.execute();
+			}
+
+			function undo() {
+				var command = commandQueue.pop();
+				if (command && Slick.GlobalEditorLock.cancelCurrentEdit()) {
+					var editCommand = command.editCommand;
+					editCommand.undo();
+					grid.gotoCell(editCommand.row, editCommand.cell, false);
+					var node = $(grid.getActiveCellNode());
+					loader.update(node, {
+						value : editCommand.prevSerializedValue,
+						sn : command.sn,
+						tag : command.tag
+					});
+				}
+			}
+			// ]]>
+		</script>
+	</div>
+</lift:surround>

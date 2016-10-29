@@ -1,0 +1,53 @@
+<lift:surround with="top-nav" at="content">
+	<head>
+<title>Help - bliss</title>
+	</head>
+
+	<div class="row">
+
+			<div class="col-xs-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<h2>Help!</h2>
+					</div>
+				
+					<div class="ibox-content">
+						<p>Free email support is available to all users of bliss. All we ask is you follow the following three steps before reporting your
+							problem:</p>
+
+						<ol data-lift="Help.debugArchiveLink" class="reporting-problems">
+							<li>Describe the problem in as much detail as you can</li>
+							<p>In your email please describe in detail what you were doing when the problem occurred, exactly what the behaviour is, and what
+								state bliss is left in now.</p>
+							<p>Good example: "I wanted to change the cover art for "Thriller" by Michael Jackson so I clicked on the change art link in the
+								album overview page. The change art screen displays the following error: [...]"</p>
+							<p>Bad example: "Change art doesn't work"</p>
+
+							<li>Get the debug archive</li>
+							<p>bliss provides its own debug archive, which is a ZIP file containing logs, settings and lots of other contextual information.
+								All of this information makes it easier to diagnose problems.</p>
+
+							<p>The easiest way to gather this information is to hit the button below to download the archive:</p>
+
+							<a href="fdsa" class="btn btn-w-m btn-info debugArchiveLink">Download debug archive</a>
+
+							<p>
+								Alternatively, the debug archive can be retrieved by going to (if bliss is running on the same computer as your browser) <a
+									href="http://localhost:3221/debug" class="debugArchiveLink">http://localhost:<span class="debugPort">3221</span>/debug
+								</a> or if it is some other computer, <a href="http://[bliss-ip]:3221/debug" class="debugArchiveLink">http://[bliss-ip]:<span
+									class="debugPort">3221</span>/debug
+								</a>
+							</p>
+
+							<p>Attach the archive or logs to the email you send, or if it is too large say so and I'll send you an invite to the bliss
+								Dropbox folders so you can upload the information.</p>
+
+							<li>Send your email to <a href="mailto:bliss@blisshq.com">bliss@blisshq.com</a></li>
+							<p>I'll reply as fast as I can.</p>
+						</ol>
+					</div>
+				</div>
+			</div>
+	</div>
+
+</lift:surround>

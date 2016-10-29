@@ -1,0 +1,74 @@
+<lift:surround with="top-level-activity" at="activityLayout">
+	<head>
+<title>Activity - bliss</title>
+	</head>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="file-manager">
+						<h5>Events per page</h5>
+						<lift:embed what="elementsPerPage" />
+
+						<div class="clearfix"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-9">
+			<lift:Activity.pageNavigationNav />
+
+			<div id="activityStreamList" data-lift="Activity.list">
+				<div class="activity root-activity" data-lift="comet?type=ActivityStreamList;name=TODO">
+					<div class="vote-item">
+						<div class="row" id="">
+							<div class="col-md-1 vcenter">
+								<i class="fa-compliance-status fa fa-2x"></i>
+							</div><!-- 
+							 --><div class="activity-title col-md-7 vcenter">
+							</div><!-- 
+							 --><div class="activity-more-details col-md-2 vcenter">
+								<a class="btn-more-details btn btn-default btn-sm" role="button" data-toggle="collapse" data-target=".fillin"
+											aria-expanded="false" aria-controls=".blur_13"><i class="fa fa-toggle-down fa-fw"></i>more detail</a>
+							</div><!-- 
+							 --><div class="activity-timestamp col-md-2 vcenter text-right">
+								<i class="fa fa-clock-o fa-fw"></i><span class="activity-friendly-timestamp"></span>
+							</div>
+						</div>
+						<div class="activity-detail collapse">
+							<div class="row non-root" id="">
+								<div class="col-md-1">
+									&nbsp;
+								</div>
+								<div class="col-md-1">
+									<i class="fa-compliance-status fa fa-1x"></i>
+								</div>
+								<div class="activity-title col-md-7">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<script type="text/javascript">
+					$(document).ready(function() {
+/*
+						$('.root-activity').live('click', function(eventData) {
+							if (eventData.target.rel == 'albumLink')
+								return;
+							$(this).find('.non-root').slideToggle('fast');
+						});
+						*/
+					});
+				</script>
+			</div>
+
+			<lift:Activity.pageNavigationNav />
+		</div>
+	</div>
+
+</lift:surround>

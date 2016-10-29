@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app 
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <display-name>
+      bliss debug web app
+    </display-name>
+    <description>
+      Servlets for providing debug information about a bliss installation
+    </description>
+
+    <servlet>
+      <servlet-name>AboutServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.AboutServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>ActivePoliciesServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.ActivePoliciesServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>ClearAndRescanServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.ClearAndRescanServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>ClientServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.ClientServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>DebugArchiveServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.DebugArchiveServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>HeapDumpServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.HeapDumpServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>JavaLoggingServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.JavaLoggingServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>LogsServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.LogsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>MemoryDumpServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.MemoryDumpServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>MusicModelDumpTextServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.MusicModelDumpTextServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>ProgMonitorServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.ProgMonitorServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>SettingsServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.SettingsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>TagIndexDumpTextServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.TagIndexDumpTextServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>ThreadDumpServlet</servlet-name>
+      <servlet-class>com.elsten.bliss.web.debug.ThreadDumpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>AboutServlet</servlet-name>
+      <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>ActivePoliciesServlet</servlet-name>
+      <url-pattern>/activePolicies</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>ClearAndRescanServlet</servlet-name>
+      <url-pattern>/clearandrescan</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>ClientServlet</servlet-name>
+      <url-pattern>/client</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>DebugArchiveServlet</servlet-name>
+      <url-pattern>/debug</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>HeapDumpServlet</servlet-name>
+      <url-pattern>/heapdump</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>JavaLoggingServlet</servlet-name>
+      <url-pattern>/javalogging</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>LogsServlet</servlet-name>
+      <url-pattern>/logs</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>MemoryDumpServlet</servlet-name>
+      <url-pattern>/memorydump</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>MusicModelDumpTextServlet</servlet-name>
+      <url-pattern>/musicmodel</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>ProgMonitorServlet</servlet-name>
+      <url-pattern>/progmonitor</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>SettingsServlet</servlet-name>
+      <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>TagIndexDumpTextServlet</servlet-name>
+      <url-pattern>/tagindex</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+      <servlet-name>ThreadDumpServlet</servlet-name>
+      <url-pattern>/threaddump</url-pattern>
+    </servlet-mapping>
+
+</web-app>

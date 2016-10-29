@@ -1,0 +1,77 @@
+<lift:surround with="activity" at="activityLayout">
+
+	<lift:with-param name="activity-summary"> 
+		<div class="row" data-lift="comet?type=Progress">
+			<div class="col-xs-8 vcenter">
+					<div id="progressBarDiv" title="View activity" class="navbar-text">
+						<a href="/activity"> 
+						<i id="progressBarDetailImg" class="fa fa-circle-o-notch fa-spin fa-fw"></i> 
+						<span id="progressBarDetailDiv"></span>
+						<span id="progressBarScript"></span>
+						</a>
+					</div>
+			</div><!-- No space required --><div class="col-xs-4 vcenter">
+				<div id="progressBarAndRescan">
+					<div class="btn-group navbar-btn pull-right">
+						<a id="platformRescan" class="btn btn-white" title="Rescan the music library"><i class="fa fa-refresh"></i></a>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li>
+								<a id="platformClearRescan" title="Clear and rescan">
+									<span class="fa-stack">
+										<i class="fa fa-trash fa-stack-1x fa-decorator-br"></i>
+										<i class="fa fa-refresh fa-stack-2x"></i>
+									</span>
+									&nbsp;Clear and rescan
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</lift:with-param>
+
+	<lift:with-param name="header"> 
+	<lift:bind name="header" />
+	</lift:with-param>
+			<lift:bind name="activityLayout" />
+
+	<div class="modal inmodal" id="first-run-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content animated bounceInRight">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					</button>
+					<img src="/images/square_logo_128x128.png" class="img-responsive center-block" />
+					<h4 class="modal-title">Welcome!</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						<strong>This is the first time you've run bliss</strong>, so I thought it might be useful to show you how
+						to configure bliss for the first time.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">No thanks, I'll work it out myself</button>
+					<a href="/settings?tour=true" type="button" class="btn btn-primary">Start the tour!</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	function setupFirstTimeEvents() {
+		$('#first-run-modal').modal();
+	}
+	</script>
+	<script data-lift="Template.callCorrectEventSetup" />
+
+
+
+	
+</lift:surround>
+

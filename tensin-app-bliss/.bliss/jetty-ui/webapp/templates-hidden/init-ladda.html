@@ -1,0 +1,20 @@
+<lift:children>
+	<script type="text/javascript">
+		function initLadda() {
+			var l = $('.ladda-button').ladda();
+			l.click(function() {
+				$(this).ladda('start');
+			});
+		}
+
+		$(document).ready(function() {
+			initLadda();
+		});
+	</script>
+
+	<link href="/classpath/ui/inspinia/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet"></link>
+
+	<script src="/classpath/ui/inspinia/js/plugins/ladda/spin.min.js"></script>
+	<script src="/classpath/ui/inspinia/js/plugins/ladda/ladda.min.js"></script>
+	<script src="/classpath/ui/inspinia/js/plugins/ladda/ladda.jquery.min.js"></script>
+</lift:children>

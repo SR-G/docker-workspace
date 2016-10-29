@@ -1,0 +1,28 @@
+<lift:surround with="top-nav" at="content">
+	<head> 
+    	<title>Run out of fixes! - bliss</title> 
+  	</head>
+
+		<lift:Msg id="installedLicence" noticeClass="configurationProgress"/>
+		<p>bliss will automatically update your music collection a limited number of times. Each update is called a 'fix'. When
+		you run out of fixes, you need to install some more to complete all the outstanding fixes required.</p>
+		<div data-lift="Licence.showIfOutstandingCommands" class="clearable">
+		<p>
+		Currently you have <span class="outstanding-commands-count">10</span> outstanding fixes required. These include:
+		</p>
+		<ol>
+			<li class="outstanding-command-desc"></li>
+		</ol>
+		<p>To complete these tasks <b>you must purchase more fixes</b>.</p>
+		</div>
+		<p>You can purchase more fixes at our website, or right here within bliss.</p>
+		<lift:surround with="buy-licence" at=”installLicenceForm”>
+			<form data-lift="Licence.install" method="POST">
+				<textarea class="fixes-code" rows="10"> paste code here </textarea>
+				<br />
+				<br />
+				<input type="submit" class="btn btn-primary" value="install" />
+			</form>
+		</lift:surround>
+
+</lift:surround>

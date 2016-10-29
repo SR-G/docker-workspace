@@ -1,0 +1,67 @@
+<lift:surround with="licencesExhaustedBanner" at="content">
+
+	<lift:with-param name="activity-summary"> 
+			<div class="activity-summary wrapper border-bottom p-v-xs p-h-xl">
+				<lift:bind name="activity-summary" />
+			</div>
+	</lift:with-param>
+
+	<lift:with-param name="header">
+		<lift:bind name="header" />
+	</lift:with-param>
+
+	<div class="row">
+	<div id="config-progress">
+	<span class="lift:Msg?id=configProgress;errorClass=notice%20alert%20alert-danger;noticeClass=notice%20alert%20alert-info%20fade%20in"></span>
+	</div>
+	</div>
+
+  <script type="text/javascript">
+  	// fades out the message after five seconds, if it is displayed
+  		$(document).ready(function(){
+  			window.setTimeout(function() { $('.alert-info').alert('close'); }, 5000);
+  		});
+  </script>
+
+	<script type="text/javascript">
+		//"Insert in alphabetical order by ID" plugin
+		// version 0.2
+		// Copyright (C) 2008 Ricardo Tomasi 
+		// ricardobeat at gmail.com
+		// Licensed under the WTFPL (http://sam.zoy.org/wtfpl/)
+		// http://ff6600.org/j/jquery.insertInOrder.js
+		
+		(function($){
+		jQuery.fn.insertInOrder = function(container,attr){
+		    if (!attr) attr = 'id';
+			return this.each(function(){
+				var $c = $(container), $elms = $c.children(),
+					ln = $elms.length, $t = $(this), ta = $t.attr(attr),
+					ids = [ta];
+				while(ln--){ ids.push($elms.eq(ln).attr(attr)) };
+				ids.sort();
+				if (ids[0] == ta)
+					$c.prepend(this);
+				else if (ids[ids.length-1] == ta)
+					$c.append(this);
+				else {
+					while ( ids.pop() != ta );
+					$elms.filter('['+attr+'='+ids[ids.length-1]+']').after(this);
+				};
+			});
+		};
+		})(jQuery);
+	</script>
+
+	<div class="row">
+	<span class="lift:Msg?id=installed-licence-notice;noticeClass=notice%20alert%20alert-info"></span>
+	</div>
+		
+	<div id="activityDiv" class="row activityList">
+	
+			<lift:bind name="activityLayout" />
+
+	</div>
+
+</lift:surround>
+

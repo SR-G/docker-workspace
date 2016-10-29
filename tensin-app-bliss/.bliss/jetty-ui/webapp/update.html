@@ -1,0 +1,53 @@
+<lift:surround with="top-nav" at="content">
+	<head> 
+    	<title>Update version - bliss</title> 
+  	</head>
+
+	<hr/>
+	
+	<lift:comet type="Update">
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h2>Update bliss</h2>
+				</div>
+				<div class="ibox-content">
+				
+					<p>
+					The current version of bliss is <span class="current-version">20160404</span>. 
+					<strong class="more-recent-available clearable">A more recent version, <span class="available-version">20160606</span>, is available!</strong>
+					<strong class="on-current-version clearable">You are using the latest version.</strong>
+					</p>
+					
+					<p>
+					<a class="underlined" href="http://www.blisshq.com/music-library-management-blog/tags/release.html">Read all about the latest bliss releases on the blisshq.com website.</a>
+					</p>
+					
+					<div class="row more-recent-available clearable">
+						<div class="col-md-12">
+							<div class="progress">
+								<div role="progressbar" class="progress-bar progress-bar-success" style="min-width:40em">
+									<span class="sr-only updateProgress"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="updateButton">
+								<button class="btn btn-primary btn-update"><i class="fa fa-download fa-fw"></i>Update</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="failureReason m-t-md">
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	</lift:comet>
+	
+
+</lift:surround>

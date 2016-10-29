@@ -1,0 +1,53 @@
+<lift:surround with="top-level-activity" at="activityLayout">
+	<head> 
+    	<title>Inbox - bliss</title> 
+  	</head>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="file-manager">
+						<h5>Items</h5>
+						<lift:embed what="elementsPerPage" />
+
+						<h5 class="m-t-md">Fix all visible</h5>
+						<div data-lift="Inbox.fixAll">
+							<a class="btn btn-primary btn-sm ladda-button btn-single btn-fix-all btn-truncate" data-style="zoom-in" title="Fix">Fix stuff</a>
+							<div class="clearfix"></div>
+			
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-9">
+
+
+		<lift:Inbox.pageNavigationNav/>
+
+		
+		<div id="inboxList" class="list" data-lift="Inbox.list?eager_eval=true">
+			<div class="vote-item">
+		 	<div class="row" id="anid">
+   	  			<div class="inbox-item-icon col-md-1"></div>
+   	  			<div class="inbox-item-title col-md-5"></div>
+   	  			<div class="inbox-item-timestamp col-md-2 small text-center"><i class="fa fa-clock-o fa-fw"></i><span class="inbox-item-friendly-timestamp"></span></div>
+   	  			<div class="inbox-item-responses col-md-4 float-e-margins">
+   	  			<div data-lift="embed?what=btn-responses" />
+   	  			
+   	  			</div>
+   	  		</div>
+   	  		</div>
+		</div>
+		
+		<lift:Inbox.pageNavigationNav/>
+		
+		</div>
+	</div>
+	
+	<div data-lift="embed?what=init-ladda" />
+	
+</lift:surround>
