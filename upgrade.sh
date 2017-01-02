@@ -11,17 +11,23 @@ do
   docker stop $ID
 done
 
+rm -f "/home/datas/docker-datas/plex/config/Library/Application Support/Plex Media Server/plexmediaserver.pid"
+
 echo "Now upgraing docker daemon"
 systemctl stop docker
 pacman -S --noconfirm docker
+
+echo "Continue ?"
+read ANSWER
+
 systemctl daemon-reload
 systemctl start docker
 
 tac "$FILE_TEMP_DOCKER_IDS" | while read ID
 do
-  sleep 10
   echo "About to start [$ID]"
   docker start $ID
+  sleep 10
 done
 
 
