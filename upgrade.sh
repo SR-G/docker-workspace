@@ -23,6 +23,9 @@ read ANSWER
 systemctl daemon-reload
 systemctl start docker
 
+echo "Wait 5 secs for daemon docker to start ..."
+sleep 5
+
 tac "$FILE_TEMP_DOCKER_IDS" | while read ID
 do
   echo "About to start [$ID]"
