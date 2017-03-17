@@ -8,5 +8,6 @@ ENV	HOME /config
 EXPOSE	32400
 
 ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh /plexupdate.sh
+ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate-core /plexupdate-core
 # RUN	curl -sLo /plexupdate.sh https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh
 RUN	sed -i 's/sudo //g' /plexupdate.sh && chmod a+x /plexupdate.sh && /plexupdate.sh -a -p -f -U
