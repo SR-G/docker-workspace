@@ -11,7 +11,7 @@ do
   docker stop $ID
 done
 
-rm -f "/home/datas/docker-datas/plex/config/Library/Application Support/Plex Media Server/plexmediaserver.pid"
+find "/home/datas/docker-datas/plex/config/Library/Application Support/Plex Media Server/"*.pid -exec rm -f '{}' \;
 
 echo "Now upgraing docker daemon"
 systemctl stop docker

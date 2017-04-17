@@ -1,4 +1,4 @@
-FROM	ubuntu:14.04
+FROM	ubuntu:16.04
 MAINTAINER SRG <serge.simon@gmail.com>
 
 ENV	DEBIAN_FRONTEND noninteractive
@@ -8,11 +8,11 @@ ENV	TIMEZONE Europe/Paris
 RUN	sed -i 's/http:\/\/archive/http:\/\/fr.archive/g' /etc/apt/sources.list && \
 	sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
 	apt-get update && apt-get -y upgrade && \
+	apt-get install -y curl git htop man software-properties-common tzdata locales unzip vim wget && \
 	locale-gen fr_FR.UTF-8 && \
-	apt-get install -y curl git htop man software-properties-common unzip vim wget zsh && \
+	dpkg-reconfigure tzdata && \
 	echo $TIMEZONE > /etc/timezone && \
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
-	dpkg-reconfigure tzdata && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Keep this after packages have been installed

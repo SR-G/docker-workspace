@@ -1,15 +1,10 @@
-FROM	tensin-base-ubuntu
+FROM	tensin-base-ubuntu-rclone
 
 VOLUME	["/config"]
 CMD	["/usr/sbin/start_pms"]
-WORKDIR	/config
-ENV	HOME /config
+WORKDIR	/opt/
 
 EXPOSE	32400
 
-ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh /plexupdate.sh
-ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate-core /plexupdate-core
-ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/extras/installer.sh /extras/
-ADD	https://raw.githubusercontent.com/mrworf/plexupdate/master/extras/cronwrapper /extras/
-# RUN	curl -sLo /plexupdate.sh https://raw.githubusercontent.com/mrworf/plexupdate/master/plexupdate.sh
-RUN	sed -i 's/sudo //g' /plexupdate.sh && chmod a+x /plexupdate.sh && /plexupdate.sh -a -p -f -U
+RUN	git clone https://github.com/mrworf/plexupdate.git && cd /opt/plexupdate/ && \
+	sed -i 's/sudo //g' plexupdate.sh && chmod a+x plexupdate.sh && plexupdate.sh -a -p -f -U
