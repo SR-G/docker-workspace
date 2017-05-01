@@ -1,4 +1,4 @@
-FROM	jrottenberg/ffmpeg
+FROM	jrottenberg/ffmpeg:3.3
 
 VOLUME	["/data"]
 WORKDIR	/data
