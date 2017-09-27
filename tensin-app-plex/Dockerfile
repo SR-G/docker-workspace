@@ -4,7 +4,7 @@ VOLUME	["/config"]
 CMD	["/usr/sbin/start_pms"]
 WORKDIR	/opt/
 
-EXPOSE	32400
+EXPOSE	32400 33400
 
-RUN	apt-get update && apt-get install -y git && git clone https://github.com/mrworf/plexupdate.git && cd /opt/plexupdate/ && \
+RUN	apt-get update && apt-get install -y udev git && git clone https://github.com/mrworf/plexupdate.git && cd /opt/plexupdate/ && \
 	sed -i 's/sudo //g' plexupdate.sh && chmod a+x plexupdate.sh && ./plexupdate.sh -a -p -f -U

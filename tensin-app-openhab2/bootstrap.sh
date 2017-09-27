@@ -11,6 +11,7 @@ PATH_ADDONS_AVAILABLE="${OPENHAB_DEST}/addons-available/"
 PATH_ADDONS_AVAILABLE_OH1="${OPENHAB_DEST}/addons-available-oh1/"
 OPENHAB_URL_RELEASES="https://bintray.com/artifact/download/openhab/bin" 
 OPENHAB2_URL_SNAPSHOTS="https://openhab.ci.cloudbees.com/job/openHAB-Distribution/lastSuccessfulBuild/artifact/distributions/openhab-offline/target/"
+OPENHAB2_URL_RELEASES="https://bintray.com/openhab/mvn/download_file?file_path=org%2Fopenhab%2Fdistro%2Fopenhab%2F"
 PIPEWORK_URL="https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework"
 
 # ========================================================
@@ -28,7 +29,7 @@ function installOpenHAB {
 	if [[ "$IS_SNAPSHOT" -eq 1 ]] ; then
 		OPENHAB_URL="${OPENHAB2_URL_SNAPSHOTS}openhab-offline-${OPENHAB_VERSION}.zip"
 	else
-		OPENHAB_URL="${OPENHAB_URL_RELEASES}openhab-offline-${OPENHAB_VERSION}.zip"
+		OPENHAB_URL="${OPENHAB2_URL_RELEASES}${OPENHAB_VERSION}%2Fopenhab-${OPENHAB_VERSION}.zip"
 	fi
 	step "Downloading [${OPENHAB_URL}]"
 	curl -sLo "${OPENHAB_DEST}/openhab.zip" "${OPENHAB_URL}"
