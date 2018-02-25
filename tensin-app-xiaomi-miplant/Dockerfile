@@ -26,3 +26,4 @@ ENV     TERM xterm
 WORKDIR	/opt/miflora-mqtt-daemon
 
 ADD	config.ini /opt/miflora-mqtt-daemon
+ADD	*.sh /opt/miflora-mqtt-daemon
