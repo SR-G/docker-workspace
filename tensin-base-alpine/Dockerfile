@@ -1,4 +1,4 @@
-FROM	alpine:edge
+FROM	alpine:3.8
 MAINTAINER SRG <serge.simon@gmail.com>
 
 ENV	TIMEZONE Europe/Paris

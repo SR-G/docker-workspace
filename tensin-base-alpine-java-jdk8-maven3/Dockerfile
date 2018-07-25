@@ -3,7 +3,7 @@ FROM    tensin-base-alpine-java-jdk8
 # Set Appropriate Environmental Variables
 ENV     MAVEN_HOME /usr/share/maven
 ENV     PATH $PATH:$MAVEN_HOME/bin
-ENV     MAVEN_VERSION 3.3.9
+ENV     MAVEN_VERSION 3.5.4
 
 # Maven
 RUN     apk --update add subversion git && \
