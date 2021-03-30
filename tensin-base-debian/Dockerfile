@@ -1,4 +1,4 @@
-FROM	debian:stretch-slim
+FROM	debian:buster-slim
 MAINTAINER SRG <serge.simon@gmail.com>
 
 ENV	TIMEZONE Europe/Paris
