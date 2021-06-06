@@ -184,9 +184,11 @@ function updateImages {
       [[ "$CR" -ne 0 ]] && echo "ERROR when pulling [$IMAGE_NAME]" >> "$ERROR_LOG"
     fi
   done
-  echo "\n\n\n"
-  cat "$ERROR_LOG" 2>/dev/null
-  rm -f "$ERROR_LOG" 2>/dev/null
+  if [[ -f "$ERROR_LOG" ]] ; then
+    echo "\n\n\nEncountered errors : \n"
+    cat "$ERROR_LOG" 2>/dev/null
+    rm -f "$ERROR_LOG" 2>/dev/null
+  fi
 }
 
 function updateRemoteParentImages {
@@ -195,7 +197,8 @@ function updateRemoteParentImages {
     [[ "$IMAGE_NAME" == "-" ]] && IMAGE_NAME="$ALIAS"
     echo "$IMAGE_NAME" >> /tmp/image_names.$$
   done
-  updateImages $(cat /tmp/image_names.$$ | sort -u)
+  IMAGES_NAMES=$(cat /tmp/image_names.$$ | sort -u | tr "\n" " ")
+  updateImages "$IMAGES_NAMES"
 }
 
 function updateLocalParentImages {
@@ -204,7 +207,7 @@ function updateLocalParentImages {
 }
 
 function updateLocalImages {
-  IMAGE_NAMES=$(ls -1d * | grep -v "tensin-base-")
+  IMAGE_NAMES=$(ls -1d */ | grep -v "tensin-base-" | sed 's&/$&&')
   updateImages "$IMAGE_NAMES"
 }
 
