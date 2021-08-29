@@ -5,7 +5,7 @@ RUN     apt-get update && apt-get install -y curl ca-certificates tar unzip && a
 # Set environment
 ENV     JAVA_PACKAGE       jdk
 ENV     JAVA_HOME /opt/jdk
-ENV     PATH ${PATH}:${JAVA_HOME}/bin
+ENV     PATH .:$PATH:$JAVA_HOME/bin
 
 # Java Version
 # https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz?AuthParam=1543518300_a56c217e3fe1643603d5859ba373ed7d
@@ -16,7 +16,7 @@ ENV     PATH ${PATH}:${JAVA_HOME}/bin
 # ENV     JAVA_VERSION_BUILD b09
 # ENV	JAVA_DOWNLOAD_URL https://download.oracle.com/otn-pub/java/${JAVA_PACKAGE}/${JAVA_VERSION}-${JAVA_VERSION_BUILD}/${JAVA_HASH}/${JAVA_PACKAGE}-${JAVA_VERSION}-linux-x64.tar.gz
 
-ADD 	jdk-8u281-linux-i586.tar.gz	/opt/
+ADD 	jdk-8u301-linux-x64.tar.gz 	/opt/
 
 # Download and unarchive Java
 #	echo "Download : ${JAVA_DOWNLOAD_URL}" && \

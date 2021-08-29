@@ -3,7 +3,7 @@ FROM	tensin-base-debian-java-jdk11
 # Set Appropriate Environmental Variables
 ENV     MAVEN_HOME /opt/maven
 ENV     PATH $PATH:$MAVEN_HOME/bin
-ENV     MAVEN_VERSION 3.6.1
+ENV     MAVEN_VERSION 3.8.2
 
 # Maven
 RUN     mkdir -p /opt/ && cd /opt && \
