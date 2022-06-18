@@ -1,4 +1,4 @@
-FROM	debian:buster-slim
+FROM	debian:bullseye-slim
 MAINTAINER SRG <serge.simon@gmail.com>
 
 ENV	TIMEZONE Europe/Paris
