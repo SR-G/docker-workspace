@@ -4,7 +4,7 @@ WORKDIR	/workspace/
 
 ENV	GO_HOME /opt/go/
 ENV	PATH ${PATH}:${GO_HOME}/bin
-ENV	GO_VERSION 1.13.4
+ENV	GO_VERSION 1.18.3
 ENV	GO_PACKAGE linux-amd64
 ENV	INSTALL_DIRECTORY /usr/local/bin/
 
